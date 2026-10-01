@@ -1,0 +1,1058 @@
+/* ============================================================================
+   THE TOP PROFESSIONAL: design tokens
+   ----------------------------------------------------------------------------
+   One source of truth for both surfaces: the public editorial site and the
+   admin application. Nothing below is page specific. If a value appears as a
+   literal in a component, it belongs here instead.
+
+   Colour: every text token records its measured contrast against the surface
+   it is used on, and qa/tokens.mjs recomputes those numbers and fails the build
+   if a comment has drifted from reality. Floors are WCAG 2.2 AA: 4.5:1 for body
+   text, 3:1 for large text and for the edges of interactive controls.
+
+   Brand: burgundy #8F1117, editorial black #111111, white. Burgundy carries
+   recognition, emphasis and primary action. It does not carry body text and it
+   does not become the page.
+   ========================================================================= */
+
+:root {
+  color-scheme: light dark;
+
+  /* --- Brand primitives. Referenced by the semantic tokens, not used direct --- */
+  --brand-burgundy: #8F1117;
+  --brand-burgundy-deep: #6d0d11;
+  --brand-black: #111111;
+  --brand-white: #ffffff;
+
+  /* --- Surfaces --- */
+  --paper: #fbfaf7;           /* editorial page */
+  --paper-sunk: #f2efe8;      /* recessed band */
+  --paper-raised: #ffffff;    /* card above the page */
+
+  /* --- Ink. Ratios measured against --paper --- */
+  --ink: #111111;             /* 18.09 on paper */
+  --ink-2: #4a4840;           /* 8.78 on paper */
+  --ink-3: #696658;           /* 5.52 on paper */
+  --ink-inverse: #ffffff;
+
+  /* --- Rules and edges --- */
+  --rule: #ddd8c9;            /* decorative hairline, no contrast duty */
+  --rule-strong: #8a8578;     /* 3.53 on paper: control and input edges */
+
+  /* --- Accent --- */
+  --accent: #8F1117;          /* 8.90 on paper */
+  --accent-2: #6d0d11;        /* 11.73 on paper: hover and focus */
+  --accent-wash: #f6e7e8;     /* tint behind recognition marks */
+  --on-accent: #ffffff;       /* 9.29 on accent */
+
+  /* --- Status. Editorial palette, not the usual traffic lights --- */
+  --flag: #6d4a06;            /* 7.64 on paper: notice */
+  --flag-wash: #fdf3e2;
+  --affirm: #0f6b3f;          /* 6.30 on paper */
+  --affirm-wash: #e8f6ee;
+  --refuse: #b42318;          /* 6.30 on paper */
+  --refuse-wash: #fdecea;
+
+  /* --- Type families --- */
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  /* --- Type scale. Size, line height and tracking travel together, because a
+         size chosen without its line height is how a scale falls apart. --- */
+  --text-display: clamp(2.75rem, 6vw, 4.75rem);
+  --leading-display: 1.02;
+  --tracking-display: -0.022em;
+
+  --text-h1: clamp(2rem, 4vw, 3rem);
+  --leading-h1: 1.08;
+  --tracking-h1: -0.018em;
+
+  --text-h2: clamp(1.5rem, 2.4vw, 2rem);
+  --leading-h2: 1.16;
+  --tracking-h2: -0.014em;
+
+  --text-h3: 1.3125rem;
+  --leading-h3: 1.28;
+  --tracking-h3: -0.01em;
+
+  --text-h4: 1.0625rem;
+  --leading-h4: 1.35;
+  --tracking-h4: -0.006em;
+
+  --text-body-lg: 1.1875rem;
+  --leading-body-lg: 1.62;
+
+  --text-body: 1rem;
+  --leading-body: 1.68;
+
+  --text-body-sm: 0.875rem;
+  --leading-body-sm: 1.6;
+
+  --text-caption: 0.8125rem;
+  --leading-caption: 1.5;
+
+  /* The apparatus: small caps labels on facts, sources, margin notes and
+     eyebrows. Distinct from --text-meta, which is interface metadata. */
+  --text-label: 0.6875rem;
+  --text-label-sm: 0.625rem;
+
+  /* Secondary editorial text: a listing summary, a caption under a figure. */
+  --text-body-compact: 0.9375rem;
+
+  /* The decorative opening quotation mark on a pull quote. */
+  --text-quote-mark: 3.2rem;
+
+  --text-meta: 0.75rem;
+  --leading-meta: 1.4;
+  --tracking-meta: 0.08em;
+
+  --text-button: 0.875rem;
+  --text-nav: 0.875rem;
+
+  /* --- Interface scale. Separate from the editorial scale above, on purpose.
+         A dense working tool and a reading page want different steps: the
+         editorial scale starts where a paragraph is comfortable and climbs to a
+         masthead, while the interface scale lives between 12 and 28 pixels and
+         has to put a table, a badge and a form label next to each other. One
+         scale stretched across both jobs produces a cramped article or a shouty
+         admin. Both are defined here, so neither is invented per page. --- */
+  --ui-xs: 0.75rem;     /* 12px: table headers, metadata, badges */
+  --ui-sm: 0.8125rem;   /* 13px: secondary and helper text */
+  --ui-base: 0.875rem;  /* 14px: controls, labels, most body text */
+  --ui-md: 0.9375rem;   /* 15px: primary reading text in a panel */
+  --ui-lg: 1.25rem;     /* 20px: page title */
+  --ui-xl: 1.375rem;    /* 22px: sign in and landing headings */
+  --ui-2xl: 1.75rem;    /* 28px: the one number worth making large */
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  /* --- Spacing. One scale. No arbitrary pixel values in components. --- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  /* --- Layout --- */
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --measure: 34rem;           /* reading column: about 68 characters */
+  --margin-col: 15rem;        /* the source margin beside the reading column */
+  --container-prose: 34rem;
+  --container-text: 48rem;
+  --container-wide: 72rem;
+  --container-max: 86rem;
+
+  /* --- Radius. Restrained. A premium publication is not made of pills. --- */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-full: 999px;
+
+  /* --- Elevation. Used sparingly, and never to fake depth on flat editorial. */
+  --shadow-sm: 0 1px 2px rgb(17 17 17 / 0.06);
+  --shadow-md: 0 2px 8px rgb(17 17 17 / 0.08);
+  --shadow-lg: 0 12px 32px rgb(17 17 17 / 0.12);
+
+  /* --- Motion --- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 120ms;
+  --dur: 200ms;
+  --dur-slow: 320ms;
+
+  /* --- Stacking. Named, so nobody writes z-index: 9999 again. --- */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 100;
+  --z-header: 200;
+  --z-dropdown: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+
+  /* --- Breakpoints. CSS cannot read a custom property inside a media query,
+         so these are the agreed numbers for scripts and for review. The media
+         queries that use them are written out literally and must match.
+         320 / 375 / 430 phones, 768 tablet, 1024 small laptop, 1280 desktop,
+         1536 large desktop. --- */
+  --bp-sm: 480px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1536px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* The dark ground is the brand's editorial black rather than a warm
+       near black, so the two themes share one black. Every value below is
+       measured against it. */
+    --paper: #111111;
+    --paper-sunk: #1a1917;
+    --paper-raised: #1a1917;
+
+    --ink: #f5f1e8;           /* 16.75 on paper */
+    --ink-2: #c9c4b8;         /* 10.85 on paper */
+    --ink-3: #aaa498;         /* 7.62 on paper */
+    --ink-inverse: #111111;
+
+    --rule: #3a3731;
+    --rule-strong: #666055;   /* 3.03 on paper */
+
+    /* Burgundy at full strength is unreadable on a dark page: #8F1117 lands
+       at 1.9 and the lifted #b9363d only reaches 3.29, both short of the 4.5
+       a link needs. This tint keeps the hue and clears the floor. */
+    --accent: #d2685e;        /* 5.29 on paper */
+    --accent-2: #e69a91;      /* 8.45 on paper */
+    --accent-wash: #3a2022;
+    --on-accent: #111111;     /* 5.29 on accent */
+
+    --flag: #f0c36a;          /* 11.44 on paper */
+    --flag-wash: #2a2213;
+    --affirm: #6fcf97;        /* 9.93 on paper */
+    --affirm-wash: #122319;
+    --refuse: #ff7b7b;        /* 7.53 on paper */
+    --refuse-wash: #2b1414;
+
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 2px 8px rgb(0 0 0 / 0.5);
+    --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur: 0ms;
+    --dur-slow: 0ms;
+  }
+}
+
+/* The Top Professional: public reading experience.
+ *
+ * THE ARGUMENT
+ * Every other profile site asserts things about people and expects to be
+ * believed. This one can prove what it says, so proof is the aesthetic. Each
+ * statement carries a numbered reference, and on a wide screen the source
+ * itself sits in the margin beside the sentence it supports. The evidence is
+ * not a footnote you may scroll to; it is printed alongside the claim, the
+ * whole way down. That margin column is the site's signature.
+ *
+ * CONSEQUENCES
+ *   A serif for prose, a grotesk for apparatus. This is a document.
+ *   One accent, spent almost nowhere, so it carries weight where it lands.
+ *   No gradients behind text, no card shadows, no ornament that competes.
+ *   One left edge for the name, the facts, the prose and the references.
+ *   Someone with no photograph gets a drawn plate, not a grey silhouette.
+ *
+ * CONTRAST
+ * Every ratio in a comment below is computed by qa/tokens.mjs rather than
+ * estimated, and that script fails if a comment drifts from the real value.
+ * Floors: 4.5 for body text, 3.0 for text at 24px or 18.66px bold, 3.0 for
+ * borders that carry meaning.
+ */
+
+/* The only absolute sizes left below are deliberate and are not tokens:
+   `em` values scale with the element they sit in, which is the whole reason
+   they are written that way; the two large pixel sizes are inside an SVG
+   viewBox and are drawing units rather than page type; and the `pt` values
+   belong to the print stylesheet, where physical units are correct.
+   qa/tokens.mjs enforces that nothing else creeps in.
+
+   Tokens live in lib/design/tokens.css and are concatenated ahead of this file
+   at build time. Nothing below declares a colour, a size or a duration of its
+   own: if a value is missing, it belongs in the token file. */
+
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(1.0625rem, 0.99rem + 0.35vw, 1.25rem);
+  line-height: 1.62;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  /* Old-style figures sit properly inside running prose. Tabular lining
+     figures are reinstated on anything that is data. */
+  font-variant-numeric: oldstyle-num;
+}
+
+.sheet { max-width: 72rem; margin: 0 auto; padding: 0 var(--gutter); }
+.col { max-width: var(--measure); }
+
+a { color: var(--accent); text-underline-offset: 0.18em; text-decoration-thickness: from-font; }
+a:hover { color: var(--accent-2); }
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 10;
+  background: var(--paper); color: var(--ink);
+  font-family: var(--sans); font-size: var(--text-body-sm); padding: 0.75rem 1rem;
+  border: 1px solid var(--rule-strong);
+}
+.skip:focus { left: 0.5rem; top: 0.5rem; }
+
+/* A preview build says so, at the top of every page, in a colour that cannot
+   be mistaken for part of the design. */
+.notice {
+  background: var(--flag); color: var(--paper);
+  font-family: var(--sans); font-size: var(--text-caption); line-height: 1.5;
+  padding-block: 0.7rem;
+}
+.notice b { font-weight: 600; }
+
+/* ---------------------------------------------------------------- masthead */
+
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  position: sticky; top: 0; z-index: 5;
+}
+.masthead-in {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem; padding-block: 0.9rem;
+}
+/* The approved wordmark, shipped in two colourways. The letterforms are
+   editorial black, which fails on a dark page, so dark mode gets a version
+   whose letters carry the dark-mode ink while the burgundy banner and the white
+   TOP are untouched. Only one is ever displayed, and the hidden one is also
+   hidden from assistive technology so the name is not announced twice. */
+   The toggles are written as `.wordmark img.x` rather than `.x`, because a bare
+   class loses on specificity to `.wordmark img` and both colourways rendered
+   side by side. */
+.wordmark { display: inline-flex; align-items: center; text-decoration: none; }
+.wordmark img { display: block; width: auto; height: 1.6rem; }
+@media (max-width: 30rem) { .wordmark img { height: 1.35rem; } }
+.wordmark img.wordmark-dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .wordmark img.wordmark-light { display: none; }
+  .wordmark img.wordmark-dark { display: block; }
+}
+/* Navigation. Small, in the grotesk, and the current section is marked with a
+   rule rather than a colour alone. */
+.masthead-nav ul, .foot nav ul {
+  list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+}
+.masthead-nav a {
+  font-family: var(--sans); font-size: var(--text-caption); font-weight: 500;
+  color: var(--ink-2); text-decoration: none; padding-block: 0.25rem;
+  border-bottom: 2px solid transparent;
+}
+.masthead-nav a:hover { color: var(--ink); }
+.masthead-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+@media (max-width: 30rem) {
+  .masthead-in { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .masthead-nav ul { gap: 0.25rem 1.1rem; }
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  background: var(--paper-sunk);
+  border-bottom: 1px solid var(--rule);
+  padding-block: clamp(2.75rem, 7vw, 5.5rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: end; }
+@media (min-width: 52rem) {
+  .hero-grid.has-portrait { grid-template-columns: minmax(0, 1fr) 17rem; }
+}
+
+.eyebrow {
+  display: flex; align-items: center; gap: 0.75rem;
+  font-family: var(--sans); font-size: var(--text-label); font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
+  margin: 0 0 1.25rem;
+}
+.eyebrow::after {
+  content: ""; height: 1px; flex: 1; max-width: 5rem; background: var(--rule-strong);
+}
+
+h1 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.375rem, 1.35rem + 4.3vw, 4.5rem);
+  line-height: 1.02; letter-spacing: -0.021em;
+  margin: 0 0 1rem; text-wrap: balance;
+  font-variant-numeric: lining-nums;
+}
+.standfirst {
+  font-size: clamp(1.1875rem, 1.06rem + 0.55vw, 1.5rem);
+  line-height: 1.4; color: var(--ink-2); margin: 0; max-width: var(--measure);
+  text-wrap: pretty;
+}
+
+/* A single line of apparatus under the name: role, place, and the number of
+   sources the page rests on. The last of those is the promise, stated up
+   front rather than discovered at the bottom. */
+.hero-meta {
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin: 2rem 0 0;
+  padding-top: 1.25rem; border-top: 1px solid var(--rule-strong);
+  font-family: var(--sans); font-size: var(--text-meta); letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ink-3);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.hero-meta b { color: var(--ink); font-weight: 600; }
+/* Each item is one unbreakable phrase, so "1 source on the record" cannot split
+   across two lines. Separation is space, not a drawn rule: a rule sits on the
+   ::before of each item after the first, and when the line wrapped it left a
+   stray bar hanging at the start of the new line. */
+.hero-meta { gap: 0.4rem 2.25rem; }
+.hero-meta span { white-space: nowrap; display: inline-flex; align-items: center; gap: 0.35rem; }
+
+/* ------------------------------------------------------------- the portrait */
+
+.portrait { margin: 0; }
+.portrait-frame {
+  position: relative; border: 1px solid var(--rule-strong); background: var(--paper);
+  padding: 0.5rem;
+}
+.portrait-frame img, .portrait-frame .plate {
+  display: block; width: 100%; height: auto; aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+.portrait figcaption {
+  font-family: var(--sans); font-size: var(--text-label); line-height: 1.5;
+  color: var(--ink-3); margin-top: 0.75rem; letter-spacing: 0.01em;
+}
+.portrait figcaption .synthetic { color: var(--flag); font-weight: 600; }
+
+/* The drawn plate for someone with no photograph. */
+.plate { background: var(--accent-wash); color: var(--accent); }
+.plate-figure { opacity: 0.45; }
+.plate-mono {
+  font-family: var(--serif); font-size: 128px; font-weight: 400;
+  fill: var(--accent); letter-spacing: 0.02em;
+}
+
+/* ------------------------------------------------------------------- facts */
+
+.facts {
+  display: grid; gap: 1.5rem 3rem; margin: 0;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 14rem));
+  justify-content: start;
+  padding-block: clamp(2rem, 4vw, 2.75rem);
+  border-bottom: 1px solid var(--rule);
+}
+.facts dt {
+  font-family: var(--sans); font-size: var(--text-label-sm); font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
+  margin-bottom: 0.35rem;
+}
+.facts dd { margin: 0; font-size: var(--text-body); line-height: 1.4; }
+
+/* --------------------------------------------------- prose and the margin */
+
+.prose { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+
+/* The signature layout. Column one is the text at its measure; column two is
+   the evidence, aligned to the paragraph that cites it. Below 64rem the
+   margin has nowhere to go, so the notes are dropped and the full source list
+   at the foot of the page carries the whole job. */
+.prose-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.4em 2.5rem; }
+@media (min-width: 64rem) {
+  .prose-grid {
+    grid-template-columns: minmax(0, var(--measure)) var(--margin-col);
+    column-gap: 2.5rem;
+  }
+}
+
+.para { margin: 0; grid-column: 1; }
+.para p { margin: 0; text-wrap: pretty; }
+
+/* The lede carries the weight and opens with a drop cap. */
+.para.lede p { font-size: 1.15em; line-height: 1.5; }
+.para.lede p::first-letter {
+  float: left; font-size: 3.1em; line-height: 0.82; font-weight: 400;
+  padding: 0.06em 0.08em 0 0; color: var(--accent);
+}
+
+.para h2 {
+  font-family: var(--sans); font-size: var(--text-label); font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
+  margin: 1.5em 0 0; padding-top: 1.25rem; border-top: 1px solid var(--rule);
+}
+
+.note {
+  grid-column: 1; font-family: var(--sans); font-size: var(--text-meta); line-height: 1.5;
+  color: var(--ink-3); display: none;
+}
+@media (min-width: 64rem) {
+  .note { grid-column: 2; display: block; padding-top: 0.35rem; }
+  .note:empty { display: none; }
+  .note .n {
+    display: inline-block; color: var(--accent); font-weight: 600;
+    font-variant-numeric: tabular-nums lining-nums; margin-right: 0.35rem;
+  }
+  .note .t { color: var(--ink-2); }
+  .note .d { display: block; margin-top: 0.15rem; }
+}
+
+blockquote {
+  grid-column: 1; margin: 1.2em 0; position: relative; padding-left: 1.75rem;
+}
+blockquote::before {
+  content: "\201C"; position: absolute; left: -0.1rem; top: -0.18em;
+  font-size: var(--text-quote-mark); line-height: 1; color: var(--accent); opacity: 0.55;
+}
+blockquote p {
+  font-size: clamp(1.375rem, 1.15rem + 1vw, 1.875rem);
+  line-height: 1.28; letter-spacing: -0.012em; margin: 0; text-wrap: balance;
+}
+
+.prose .col > h2 {
+  font-family: var(--sans); font-size: var(--text-label); font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
+  margin: 2.75rem 0 0.9rem; padding-top: 1.25rem; border-top: 1px solid var(--rule);
+}
+.prose .col > h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.prose .col > p { margin: 0 0 1.2em; text-wrap: pretty; }
+.prose .col > p:first-of-type { font-size: 1.1em; line-height: 1.5; }
+.prose .col b { font-weight: 600; }
+
+.boilerplate {
+  grid-column: 1; margin-top: 2rem; padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-size: var(--text-body-compact); line-height: 1.6; color: var(--ink-2);
+}
+
+/* --------------------------------------------------------------- citations */
+
+.ref {
+  font-family: var(--sans); font-size: 0.6em; font-weight: 600;
+  line-height: 1; vertical-align: super; margin-left: 0.18em;
+  text-decoration: none; color: var(--accent);
+  font-variant-numeric: lining-nums tabular-nums;
+  padding: 0.12em 0.22em; border-radius: 2px;
+  transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+.ref:hover, .ref:focus-visible { background: var(--accent); color: var(--paper); }
+.ref + .ref { margin-left: 0.06em; }
+
+.sources { padding-block: clamp(2.5rem, 6vw, 4rem); border-top: 1px solid var(--rule); }
+.sources h2, .contact h2 {
+  font-family: var(--sans); font-size: var(--text-label); font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
+  margin: 0 0 1.75rem;
+}
+.sources ol {
+  margin: 0; padding: 0; list-style: none; counter-reset: src;
+  display: grid; gap: 1.25rem; max-width: 48rem;
+}
+.sources li {
+  counter-increment: src; position: relative; padding-left: 2.5rem;
+  font-family: var(--sans); font-size: var(--text-body-sm); line-height: 1.5;
+  color: var(--ink-2);
+}
+.sources li::before {
+  content: counter(src); position: absolute; left: 0; top: 0;
+  font-size: var(--text-meta); font-weight: 600; color: var(--accent);
+  font-variant-numeric: tabular-nums lining-nums;
+  width: 1.5rem; height: 1.5rem; border: 1px solid var(--accent);
+  border-radius: 50%; display: grid; place-items: center;
+}
+.sources .src-title { color: var(--ink); font-weight: 500; }
+.sources .src-meta { display: block; color: var(--ink-3); margin-top: 0.2rem; font-variant-numeric: lining-nums; }
+.sources li:target .src-title { background: var(--accent-wash); box-shadow: 0 0 0 0.25rem var(--accent-wash); }
+
+/* ----------------------------------------------------------------- listing */
+
+.listing { padding-block: clamp(2rem, 5vw, 3.5rem); }
+.listing ul { list-style: none; margin: 0; padding: 0; }
+.listing li { border-top: 1px solid var(--rule); }
+.listing li:last-child { border-bottom: 1px solid var(--rule); }
+.listing a {
+  display: grid; gap: 0.3rem 2rem; padding-block: 1.75rem;
+  text-decoration: none; color: inherit;
+  transition: background-color 0.2s var(--ease);
+}
+.listing a:hover { background: var(--paper-sunk); }
+/* A grid child defaults to min-content width, so one long word in any cell
+   pushes the whole row past the viewport instead of wrapping inside it. */
+.listing a > * { min-width: 0; overflow-wrap: break-word; }
+@media (min-width: 46rem) {
+  .listing a {
+    grid-template-columns: 4.5rem 3rem minmax(0, 1fr) auto;
+    align-items: baseline; padding-inline: 0.75rem; margin-inline: -0.75rem;
+  }
+  .listing .thumb { grid-row: 1 / span 2; grid-column: 1; align-self: center; }
+  .listing .idx { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .listing .name { grid-column: 3; }
+  .listing .about { grid-column: 3; }
+  .listing .where { grid-row: 1; grid-column: 4; }
+}
+/* A face, or the drawn mark that stands in for one. A directory of people
+   with no pictures in it is a spreadsheet. */
+.listing .thumb {
+  display: block; width: 3.4rem; border: 1px solid var(--rule-strong);
+  padding: 2px; background: var(--paper); line-height: 0;
+}
+.listing .thumb img, .listing .thumb .plate {
+  display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover;
+}
+.listing .thumb .plate-mono { font-size: 170px; }
+/* At 3rem the figure was almost invisible, so the thumbnails read as blank
+   boxes. The pattern is drawn harder when it is small. */
+.listing .thumb .plate-figure { opacity: 0.75; }
+@media (max-width: 45.999rem) { .listing .thumb { margin-bottom: 0.5rem; } }
+.listing .idx {
+  font-family: var(--sans); font-size: var(--text-label); font-weight: 600;
+  letter-spacing: 0.08em; color: var(--ink-3);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.listing .name {
+  font-size: clamp(1.375rem, 1.15rem + 0.8vw, 1.75rem); line-height: 1.15;
+  letter-spacing: -0.016em;
+}
+.listing a:hover .name { color: var(--accent); }
+.listing .about { font-size: var(--text-body-compact); color: var(--ink-2); line-height: 1.45; max-width: var(--measure); }
+.listing .where {
+  font-family: var(--sans); font-size: var(--text-label); letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+/* The place line only refuses to wrap once there is a column for it to sit in.
+   A long one, such as Washington, District of Columbia, United States, was
+   holding the single column grid wider than a 320px screen. */
+@media (min-width: 46rem) { .listing .where { white-space: nowrap; } }
+
+/* ----------------------------------------------------------------- contact */
+
+.contact { padding-block: clamp(2.5rem, 6vw, 4rem); border-top: 1px solid var(--rule); background: var(--paper-sunk); }
+.contact p { margin: 0 0 1.75rem; color: var(--ink-2); font-size: var(--text-body); max-width: var(--measure); }
+.contact form { max-width: 32rem; }
+.field { margin-bottom: 1.125rem; }
+.field label {
+  display: block; font-family: var(--sans); font-size: var(--text-meta);
+  font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 0.45rem;
+}
+.field input, .field textarea {
+  width: 100%; font: inherit; font-size: var(--text-body); color: var(--ink);
+  background: var(--paper); border: 1px solid var(--rule-strong);
+  padding: 0.7rem 0.85rem; border-radius: 2px;
+  transition: border-color 0.15s var(--ease);
+}
+.field input:focus, .field textarea:focus { border-color: var(--accent); }
+.field textarea { min-height: 8rem; resize: vertical; }
+.hp { position: absolute; left: -9999px; }
+
+/* ------------------------------------------------------------------ footer */
+
+.foot {
+  border-top: 1px solid var(--rule); padding-block: 2.5rem 3.5rem;
+  font-family: var(--sans); font-size: var(--text-caption); color: var(--ink-3);
+}
+.foot p { margin: 0 0 0.5rem; max-width: 34rem; }
+.foot-in { display: grid; gap: 2rem; }
+@media (min-width: 46rem) { .foot-in { grid-template-columns: minmax(0, 1fr) auto; } }
+.foot-mark { font-family: var(--sans); font-weight: 600; color: var(--ink); }
+@media print { .wordmark img.wordmark-dark { display: none !important; } .wordmark img.wordmark-light { display: block !important; } }
+.foot nav ul { flex-direction: column; gap: 0.5rem; }
+.foot nav a { color: var(--ink-2); text-decoration: none; }
+.foot nav a:hover { color: var(--accent); text-decoration: underline; }
+.foot-fine { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: var(--text-meta); }
+
+.more { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-family: var(--sans); font-size: var(--text-body-compact); }
+
+/* ------------------------------------------------------------------ motion */
+
+/* Content is visible by default so the page is complete with no JavaScript.
+   The script adds `js` to the root, which opts in to the entrance, and the
+   whole thing is switched off for anyone who asked for less movement. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal { opacity: 0; transform: translateY(0.75rem); }
+  .js .reveal.in { opacity: 1; transform: none; transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ------------------------------------------------------------------- print */
+
+@media print {
+  :root {
+    --paper: #fff; --paper-sunk: #fff; --ink: #000; --ink-2: #222;
+    --ink-3: #444; --rule: #bbb; --accent: #000; --accent-wash: #fff;
+  }
+  body { font-size: 11pt; }
+  .masthead, .contact, .skip { display: none; }
+  .hero { border-bottom: 1px solid #bbb; }
+  .portrait { float: right; width: 42mm; margin: 0 0 8mm 8mm; }
+  h1 { font-size: 24pt; }
+  .note { display: none; }
+  .prose-grid { grid-template-columns: 1fr; }
+  /* A printed page has left the screen, so a reference has to carry its
+     address rather than a hyperlink nobody can click. */
+  .sources a[href^="http"]::after { content: " (" attr(href) ")"; word-break: break-all; font-size: 8pt; }
+  .prose, .sources { padding-block: 0; }
+}
+
+/* ---------------------------------------------------------------- sections */
+/* Browse by profession. A quiet block, not a row of marketing tiles: the
+   sections are navigation, and the directory above them is the content.
+   A section with nobody in it is shown, but not as a link, because the
+   publication covers it even where the sourcing work has not been done. */
+.browse {
+  padding-block: clamp(2.5rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--rule);
+}
+.section-title {
+  font-family: var(--sans);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-meta);
+  line-height: var(--leading-meta);
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 var(--space-md);
+}
+.browse-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.browse-list > li {
+  background: var(--paper);
+  margin: 0;
+}
+.browse-list a,
+.browse-list > li.is-empty {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color var(--dur) var(--ease);
+}
+.browse-list a:hover {
+  background: var(--accent-wash);
+}
+.browse-name {
+  font-family: var(--serif);
+  font-size: var(--text-h4);
+  line-height: var(--leading-h4);
+}
+.browse-list a .browse-name {
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 3px;
+}
+.browse-list a:hover .browse-name {
+  text-decoration-color: var(--accent);
+}
+.browse-count {
+  font-family: var(--sans);
+  font-size: var(--text-meta);
+  letter-spacing: var(--tracking-meta);
+  text-transform: uppercase;
+  color: var(--ink-3);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+/* An empty section is legible but plainly inactive, and it is not a link, so
+   nobody is sent to a page with nothing on it. */
+.browse-list > li.is-empty {
+  color: var(--ink-3);
+}
+@media (min-width: 46rem) {
+  .browse-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 68rem) {
+  .browse-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ------------------------------------------------------------------ search */
+.searchpane { padding-block: clamp(2rem, 5vw, 3.5rem); }
+.searchform { display: grid; gap: var(--space-2xs); max-width: 38rem; }
+.searchform label {
+  font-family: var(--sans);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-meta);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.searchform input {
+  width: 100%;
+  font: inherit;
+  font-size: var(--text-body-lg);
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-sm);
+}
+.searchform input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* The button exists for the keyboard and for a submit without script. Typing
+   already searches, so it is quiet rather than a primary action. */
+.searchform button {
+  justify-self: start;
+  font-family: var(--sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--ink);
+  background: none;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2xs) var(--space-sm);
+  cursor: pointer;
+}
+.searchform button:hover { background: var(--paper-sunk); }
+.searchnote {
+  font-family: var(--sans);
+  font-size: var(--text-body-sm);
+  color: var(--ink-2);
+  margin: var(--space-md) 0 0;
+  max-width: var(--measure);
+}
+.searchlist { list-style: none; margin: 0 0 var(--space-lg); padding: 0; }
+.searchlist li { border-top: 1px solid var(--rule); }
+.searchlist li:last-child { border-bottom: 1px solid var(--rule); }
+.searchlist a {
+  display: grid;
+  gap: 0.2rem;
+  padding: var(--space-xs) 0;
+  text-decoration: none;
+  color: inherit;
+}
+.searchlist a:hover { background: var(--paper-sunk); }
+.searchname { font-family: var(--serif); font-size: var(--text-h3); line-height: var(--leading-h3); }
+.searchabout { font-size: var(--text-body-compact); color: var(--ink-2); }
+#searchresults .section-title { margin-top: var(--space-lg); }
+
+/* --------------------------------------------------------------- editorial */
+/* An article is signed reporting, so it is furnished differently from a
+   profile: a byline instead of a source margin, a hero image, a reading
+   estimate. The shared parts are the measure and the type scale. */
+.artmeta {
+  font-family: var(--sans);
+  font-size: var(--text-caption);
+  color: var(--ink-2);
+  margin: var(--space-sm) 0 0;
+}
+.arthero { margin: 0 0 var(--space-xl); }
+.arthero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.arthero figcaption {
+  max-width: var(--container-wide);
+  margin: var(--space-2xs) auto 0;
+  padding: 0 var(--gutter);
+  font-family: var(--sans);
+  font-size: var(--text-meta);
+  color: var(--ink-3);
+}
+.artbody > :first-child { margin-top: 0; }
+.artbody h2, .artbody h3, .artbody h4 {
+  font-family: var(--serif);
+  margin: var(--space-xl) 0 var(--space-2xs);
+}
+.artbody h2 { font-size: var(--text-h2); line-height: var(--leading-h2); letter-spacing: var(--tracking-h2); }
+.artbody h3 { font-size: var(--text-h3); line-height: var(--leading-h3); letter-spacing: var(--tracking-h3); }
+.artbody h4 { font-size: var(--text-h4); line-height: var(--leading-h4); }
+.artbody p { margin: 0 0 1.1em; }
+.artbody ul { margin: 0 0 1.1em; padding-left: 1.2em; }
+.artbody li { margin: 0 0 0.35em; }
+/* A pull quote is set apart by rule and size, not by a coloured panel. */
+.artbody blockquote {
+  margin: var(--space-lg) 0;
+  padding-left: var(--space-md);
+  border-left: 2px solid var(--accent);
+}
+.artbody blockquote p {
+  font-family: var(--serif);
+  font-size: var(--text-body-lg);
+  line-height: 1.45;
+  margin: 0;
+}
+.artsubjects, .artrelated { margin-top: var(--space-xl); }
+.artsubjects ul, .artrelated ul { list-style: none; margin: 0; padding: 0; }
+.artsubjects li { padding: var(--space-3xs) 0; }
+.artrelated li { border-top: 1px solid var(--rule); }
+.artrelated li:last-child { border-bottom: 1px solid var(--rule); }
+.artrelated a { display: grid; gap: 0.2rem; padding: var(--space-xs) 0; text-decoration: none; color: inherit; }
+.artrelated a:hover { background: var(--paper-sunk); }
+
+.artlead { padding-block: clamp(2rem, 5vw, 3.5rem); }
+.artlead a { display: grid; gap: var(--space-md); text-decoration: none; color: inherit; }
+.artlead-img img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.artlead-text { display: grid; gap: var(--space-2xs); max-width: var(--container-text); }
+.artlead-title {
+  font-family: var(--serif);
+  font-size: var(--text-h1);
+  line-height: var(--leading-h1);
+  letter-spacing: var(--tracking-h1);
+}
+.artlead-dek { font-size: var(--text-body-lg); line-height: var(--leading-body-lg); color: var(--ink-2); }
+.artlead a:hover .artlead-title { color: var(--accent-2); }
+@media (min-width: 60rem) {
+  .artlead a { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: var(--space-xl); }
+}
+
+/* ------------------------------------------------------------- the homepage */
+/* Buttons. Burgundy is spent on exactly one action per view: the primary. A
+   second burgundy button would make neither of them mean anything. */
+/* One button component for the whole public site, links and submits alike.
+   There were briefly two rules named .btn, one for the contact submit and one
+   for these, and the second declared no background: the first supplied black,
+   the second supplied black text, and the result was an invisible label on a
+   black box. Every property the component depends on is declared here, so a
+   later rule cannot leave it half styled again. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  padding: var(--space-xs) var(--space-md);
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.btn:hover { background: var(--paper-sunk); color: var(--ink); }
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); color: var(--on-accent); }
+
+.hero-acts, .closing-acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  margin: var(--space-lg) 0 0;
+}
+.hero-home .standfirst { margin-bottom: 0; }
+
+/* The four promises. Numbered, ruled, no icons: an icon here would be
+   decoration standing in for a claim, and each of these is a claim. */
+.promises { padding-block: clamp(2.5rem, 6vw, 4rem); border-top: 1px solid var(--rule); }
+.promise-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-lg) var(--space-xl);
+}
+.promise-list > li {
+  display: grid;
+  gap: var(--space-3xs);
+  align-content: start;
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--rule);
+}
+.promise-no {
+  font-family: var(--sans);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-meta);
+  color: var(--accent);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.promise-head {
+  font-family: var(--serif);
+  font-size: var(--text-h4);
+  line-height: var(--leading-h4);
+}
+.promise-body {
+  font-size: var(--text-body-compact);
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.promise-more { margin: var(--space-lg) 0 0; font-family: var(--sans); font-size: var(--text-body-sm); }
+@media (min-width: 46rem) { .promise-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 72rem) { .promise-list { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* Latest releases. A date first, because on this site the date is the claim. */
+.latest { padding-block: clamp(2.5rem, 6vw, 4rem); border-top: 1px solid var(--rule); }
+.latest-top { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-sm); }
+.latest-top .section-title { margin-bottom: var(--space-md); }
+.latest-all { font-family: var(--sans); font-size: var(--text-body-sm); }
+.latest-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--rule); border-block: 1px solid var(--rule); }
+.latest-list > li { background: var(--paper); }
+.latest-list a {
+  display: grid;
+  gap: var(--space-3xs);
+  padding: var(--space-sm) var(--space-md);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color var(--dur) var(--ease);
+}
+.latest-list a:hover { background: var(--accent-wash); }
+.latest-date {
+  font-family: var(--sans);
+  font-size: var(--text-meta);
+  letter-spacing: var(--tracking-meta);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.latest-title { font-family: var(--serif); font-size: var(--text-h4); line-height: var(--leading-h4); }
+.latest-sub { font-size: var(--text-body-compact); color: var(--ink-2); }
+@media (min-width: 52rem) { .latest-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* The closing band. Sunk rather than coloured: a burgundy slab here would
+   shout, and the sentence on it is not a sales line. */
+.closing { background: var(--paper-sunk); border-top: 1px solid var(--rule); padding-block: clamp(3rem, 7vw, 5rem); }
+.closing-in { max-width: var(--container-text); }
+.closing-head {
+  font-family: var(--serif);
+  font-size: var(--text-h2);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--tracking-h2);
+  margin: 0;
+}
+.closing-body { font-size: var(--text-body-lg); line-height: var(--leading-body-lg); color: var(--ink-2); margin: var(--space-sm) 0 0; max-width: var(--measure); }
+
+.listing .section-title { margin-bottom: var(--space-sm); }
+#directory:focus { outline: none; }
+
+/* Footer columns. */
+.foot-cols { display: grid; gap: var(--space-lg) var(--space-xl); }
+.foot-cols ul { list-style: none; margin: 0; padding: 0; }
+.foot-cols li { padding: 0.15rem 0; }
+.foot-head {
+  font-family: var(--sans);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-meta);
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 var(--space-2xs);
+}
+.foot-contact { margin-top: var(--space-2xs); }
+@media (min-width: 40rem) { .foot-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
