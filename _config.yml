@@ -1,0 +1,5 @@
+# Pages are plain HTML with a permalink in their front matter.
+# Nothing here uses layouts, includes or markdown.
+plugins: []
+exclude: []
+include: ['.well-known']
