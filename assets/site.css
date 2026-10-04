@@ -180,6 +180,24 @@
          queries that use them are written out literally and must match.
          320 / 375 / 430 phones, 768 tablet, 1024 small laptop, 1280 desktop,
          1536 large desktop. --- */
+  /* Icon sizing. One family, three sizes, nothing in between. An icon beside
+     text takes --icon-inline so it scales with the label rather than fighting
+     it. The other two are for standalone marks. */
+  --icon-inline: 1em;
+  --icon-sm: 1.125rem;
+  --icon-md: 1.5rem;
+  --icon-lg: 2rem;
+  --icon-stroke: 1.5;
+
+  /* Image ratios. The portrait ratio is 4:5 everywhere a person appears:
+     directory card, profile hero, release feature, search result. A face is
+     never squeezed into a different box, it is cover cropped into this one. */
+  --ratio-portrait: 4 / 5;
+  --ratio-landscape: 3 / 2;
+  --ratio-wide: 16 / 9;
+  --ratio-square: 1 / 1;
+  --ratio-figure: 4 / 5;
+
   --bp-sm: 480px;
   --bp-md: 768px;
   --bp-lg: 1024px;
@@ -308,12 +326,24 @@ a:hover { color: var(--accent-2); }
 
 /* A preview build says so, at the top of every page, in a colour that cannot
    be mistaken for part of the design. */
+/* The reader's note.
+   It used to be a yellow strip with the word Demonstration in it, which read as
+   a build warning rather than as the publication speaking. It is now set like
+   any other piece of editorial furniture: sunk paper, a hairline under it, and
+   the only colour is the burgundy on the two word lead in. The substance is
+   unchanged, because a page of worked examples has to say so. */
 .notice {
-  background: var(--flag); color: var(--paper);
-  font-family: var(--sans); font-size: var(--text-caption); line-height: 1.5;
-  padding-block: 0.7rem;
+  background: var(--paper-sunk); color: var(--ink-2);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--sans); font-size: var(--text-caption); line-height: 1.55;
+  letter-spacing: 0.005em;
+  padding-block: 0.65rem;
 }
-.notice b { font-weight: 600; }
+.notice b {
+  font-weight: 600; color: var(--accent);
+  letter-spacing: 0.04em; text-transform: uppercase;
+  font-size: var(--text-label); margin-right: 0.15rem;
+}
 
 /* ---------------------------------------------------------------- masthead */
 
@@ -1056,3 +1086,300 @@ blockquote p {
 }
 .foot-contact { margin-top: var(--space-2xs); }
 @media (min-width: 40rem) { .foot-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* ===========================================================================
+   THE EDITORIAL SYSTEM
+   Shared components used across every public page. Added in the production
+   pass: before this, each page assembled its own one off markup, which is why
+   the site read as a database rather than a publication.
+   Rules: burgundy only on the primary action, the TOP mark and short accents.
+   No gradients, no glassmorphism, no coloured icons, no long dashes.
+   =========================================================================== */
+
+/* ------------------------------------------------------------------ icons */
+
+.ic {
+  width: var(--icon-inline); height: var(--icon-inline);
+  display: inline-block; vertical-align: -0.125em;
+  flex: none;
+}
+.iclabel {
+  display: inline-flex; align-items: baseline; gap: 0.45em;
+  font-family: var(--sans); font-size: var(--text-meta);
+  letter-spacing: var(--tracking-meta); text-transform: uppercase;
+  color: var(--ink-3);
+}
+.iclabel .ic { align-self: center; color: var(--rule-strong); }
+
+/* ------------------------------------------------------------------ rules */
+
+.erule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+.erule-short { width: 4rem; border-top-width: 2px; border-top-color: var(--accent); }
+
+/* ------------------------------------------------- section heads and numbers */
+
+/* The number is set in the serif at display size and sits in the margin. It
+   is the single strongest piece of burgundy on an institutional page, and it
+   is decorative, so it is hidden from assistive technology. */
+.secnum {
+  font-family: var(--serif); font-size: var(--text-display);
+  line-height: 0.82; color: var(--accent);
+  font-variant-numeric: lining-nums tabular-nums;
+  opacity: 0.9;
+}
+
+.shead { margin-bottom: var(--space-lg); }
+.shead-title {
+  font-size: var(--text-h2); line-height: var(--leading-h2);
+  letter-spacing: var(--tracking-h2); margin: 0;
+}
+.shead-standfirst {
+  font-size: var(--text-body-lg); line-height: var(--leading-body-lg);
+  color: var(--ink-2); max-width: var(--measure); margin: var(--space-xs) 0 0;
+}
+.shead .eyebrow { margin-bottom: var(--space-2xs); }
+@media (min-width: 52rem) {
+  .shead-numbered { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-md); align-items: start; }
+}
+
+/* ---------------------------------------------------------- evidence cards */
+
+/* The lightest card in the system: a rule, a mark, a label, a sentence. They
+   are read across as a set, so a box around each would make four objects out
+   of one idea. */
+.ecards {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: var(--space-lg);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 40rem) { .ecards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 64rem) { .ecards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-md); } }
+.ecard { border-top: 2px solid var(--ink); padding-top: var(--space-sm); min-width: 0; }
+.ecard-mark { display: block; color: var(--accent); margin-bottom: var(--space-2xs); }
+.ecard-mark .ic { width: var(--icon-md); height: var(--icon-md); }
+.ecard-label {
+  font-family: var(--sans); font-size: var(--text-meta);
+  letter-spacing: var(--tracking-meta); text-transform: uppercase;
+  font-weight: var(--weight-semibold); color: var(--ink);
+  margin: 0 0 var(--space-3xs);
+}
+.ecard-body {
+  font-size: var(--text-body-sm); line-height: var(--leading-body-sm);
+  color: var(--ink-2); margin: 0;
+}
+
+/* --------------------------------------------------------- negative cards */
+
+/* The three statements about what this is not. They carry the most legal
+   weight on the site, so they get the heaviest treatment that is not colour:
+   a thick rule on the leading edge and the label in the ink, not the accent. */
+.ncards {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: var(--space-md); grid-template-columns: 1fr;
+}
+@media (min-width: 52rem) { .ncards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.ncard {
+  border-left: 3px solid var(--rule-strong);
+  padding: var(--space-2xs) 0 var(--space-2xs) var(--space-sm);
+  min-width: 0;
+}
+.ncard-label {
+  font-family: var(--sans); font-size: var(--text-meta);
+  letter-spacing: var(--tracking-meta); text-transform: uppercase;
+  font-weight: var(--weight-semibold); margin: 0 0 var(--space-3xs); color: var(--ink);
+}
+.ncard-body { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); margin: 0; }
+
+/* ------------------------------------------------------------------ steps */
+
+/* The connecting line is the list's own left border, so it stretches with the
+   content and survives a text zoom. The numbers sit on the paper over it. */
+.steps { list-style: none; margin: 0; padding: 0; }
+.step { position: relative; padding-left: var(--space-xl); padding-bottom: var(--space-lg); }
+.step:last-child { padding-bottom: 0; }
+.step::before {
+  content: ''; position: absolute; left: 0.75rem; top: 1.4rem; bottom: 0;
+  border-left: 1px solid var(--rule);
+}
+.step:last-child::before { display: none; }
+.step-n {
+  position: absolute; left: 0; top: 0;
+  display: inline-block; width: 1.5rem; text-align: center;
+  font-family: var(--sans); font-size: var(--text-meta);
+  font-weight: var(--weight-semibold); letter-spacing: var(--tracking-meta);
+  color: var(--accent); background: var(--paper); padding-block: 0.1rem;
+  font-variant-numeric: tabular-nums;
+}
+.step-label {
+  font-family: var(--sans); font-size: var(--text-meta);
+  letter-spacing: var(--tracking-meta); text-transform: uppercase;
+  font-weight: var(--weight-semibold); margin: 0 0 var(--space-3xs); color: var(--ink);
+}
+.step-body { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); margin: 0; max-width: var(--measure); }
+@media (min-width: 64rem) {
+  .steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-md); }
+  .step { padding-left: 0; padding-bottom: 0; padding-top: var(--space-md); border-top: 1px solid var(--rule); }
+  .step::before { display: none; }
+  .step-n { position: static; display: block; width: auto; text-align: left; background: none; margin-bottom: var(--space-2xs); }
+}
+
+/* ------------------------------------------------------- publication stats */
+
+/* A ruled row in the serif, not a tile. The figure is large and the label is
+   small caps under it, which reads as a masthead rather than a dashboard. */
+.stats {
+  display: flex; flex-wrap: wrap; gap: 0; margin: var(--space-lg) 0 0; padding: 0;
+  border-top: 1px solid var(--rule);
+}
+.stat {
+  flex: 1 1 7rem; min-width: 0;
+  padding: var(--space-sm) var(--space-md) var(--space-sm) 0;
+  /* A column so the label can grow to two lines and the figures still sit on
+     one line across the row. Without this, a wrapped label pushes its own
+     figure down and the row stops reading as a masthead. */
+  display: flex; flex-direction: column;
+}
+.stat-label { flex: 1 1 auto; }
+.stat + .stat { border-left: 1px solid var(--rule); padding-left: var(--space-md); }
+.stat-label {
+  font-family: var(--sans); font-size: var(--text-label);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3);
+  margin: 0 0 var(--space-3xs);
+}
+.stat-figure {
+  font-family: var(--serif); font-size: var(--text-h3); line-height: 1.1;
+  color: var(--ink); margin: 0; font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* ----------------------------------------------------------- call to action */
+
+.cta { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+.cta-band { background: var(--paper-sunk); border-block: 1px solid var(--rule); }
+.cta-quiet { border-top: 1px solid var(--rule); }
+.cta-in { max-width: 44rem; }
+.cta-title {
+  font-size: var(--text-h2); line-height: var(--leading-h2);
+  letter-spacing: var(--tracking-h2); margin: 0;
+}
+.cta-body {
+  font-size: var(--text-body-lg); line-height: var(--leading-body-lg);
+  color: var(--ink-2); margin: var(--space-xs) 0 0; max-width: var(--measure);
+}
+.cta-acts { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin: var(--space-md) 0 0; }
+
+/* ----------------------------------------------------------- split section */
+
+.split { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+.split + .split { border-top: 1px solid var(--rule); }
+.split-in { display: grid; gap: var(--space-lg); grid-template-columns: 1fr; }
+.split-aside { min-width: 0; }
+.split-body { min-width: 0; }
+.split-body > :first-child { margin-top: 0; }
+.split-body p {
+  font-size: var(--text-body-lg); line-height: var(--leading-body-lg);
+  color: var(--ink-2); max-width: var(--measure);
+}
+.split-body p + p { margin-top: var(--space-sm); }
+@media (min-width: 60rem) {
+  /* Asymmetric on purpose. Equal columns read as a grid of boxes. */
+  .split-in { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-2xl); align-items: start; }
+  .split-right .split-in { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .split-right .split-aside { order: 2; }
+  .split-right .split-body { order: 1; }
+}
+
+/* --------------------------------------------------------- editorial figure */
+
+.efig { margin: var(--space-lg) 0 0; }
+.efig-frame {
+  border: 1px solid var(--rule-strong); background: var(--paper-raised);
+  padding: 2px; line-height: 0;
+}
+.efig-frame .fg { display: block; width: 100%; height: auto; }
+.efig-cap {
+  font-family: var(--sans); font-size: var(--text-label);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-3); margin-top: var(--space-2xs); line-height: var(--leading-caption);
+}
+
+/* The drawn figures take their colours from the theme, so one copy is right
+   in both light and dark. */
+.fg-paper { fill: var(--paper-sunk); }
+.fg-sheet { fill: var(--paper-raised); stroke: var(--rule); stroke-width: 1; }
+.fg-sheet-quiet { fill: var(--paper-sunk); stroke: var(--rule); stroke-width: 1; }
+.fg-line { fill: var(--rule-strong); }
+.fg-faint .fg-line { fill: var(--rule); }
+.fg-rule { stroke: var(--rule-strong); stroke-width: 1; }
+.fg-rule-v { stroke: var(--accent); stroke-width: 2; }
+.fg-num {
+  /* The size is an attribute on the <text> element, in the drawing's own
+     user units, because a figure's internal scale is not the page type
+     scale and must not be pinned to it. */
+  fill: var(--accent); font-family: var(--sans);
+  font-weight: 600; letter-spacing: 0.08em;
+}
+.fg-cap {
+  fill: var(--ink-3); font-family: var(--sans);
+  font-weight: 600; letter-spacing: 0.14em;
+}
+.fg-ser { fill: var(--ink); font-family: var(--serif); }
+.fg-mark-ring { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+.fg-mark-tick { fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ------------------------------------------------------- institutional hero */
+
+/* Asymmetric: text on the left, the figure on the right, and the figure is
+   allowed to be tall. Below the fold line it stacks with the figure second,
+   because the sentence matters more than the picture. */
+.ihero { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+.ihero-in { display: grid; gap: var(--space-xl); grid-template-columns: 1fr; align-items: center; }
+.ihero-title {
+  font-size: var(--text-h1); line-height: var(--leading-h1);
+  letter-spacing: var(--tracking-h1); margin: var(--space-2xs) 0 0;
+  text-wrap: balance;
+}
+.ihero-lede {
+  font-size: var(--text-body-lg); line-height: var(--leading-body-lg);
+  color: var(--ink-2); margin: var(--space-md) 0 0; max-width: var(--measure);
+}
+.ihero-fig { min-width: 0; }
+.ihero-fig .efig { margin-top: 0; }
+@media (min-width: 60rem) {
+  .ihero-in { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--space-2xl); }
+}
+
+/* ------------------------------------------------------------ contact rows */
+
+/* Three routes, ruled apart. Not cards: a reader looking for an address wants
+   a list, and boxing each one makes the page slower to scan. */
+.croutes { list-style: none; margin: var(--space-lg) 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.croute { border-bottom: 1px solid var(--rule); padding-block: var(--space-sm); min-width: 0; }
+.croute-head { display: flex; align-items: center; gap: 0.5rem; margin: 0 0 var(--space-3xs); }
+.croute-head .ic { width: var(--icon-sm); height: var(--icon-sm); color: var(--accent); }
+.croute-label {
+  font-family: var(--sans); font-size: var(--text-meta);
+  letter-spacing: var(--tracking-meta); text-transform: uppercase;
+  font-weight: var(--weight-semibold); margin: 0; color: var(--ink);
+}
+.croute-body { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); margin: 0; max-width: var(--measure); }
+.croute-to { display: inline-block; margin-top: var(--space-2xs); font-family: var(--sans); font-size: var(--text-body-sm); }
+@media (min-width: 52rem) {
+  .croute { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: var(--space-md); align-items: baseline; }
+  .croute-head { margin-bottom: 0; }
+}
+
+/* ------------------------------------------------------- closing statement */
+
+/* One sentence, set as large as the page can carry, with nothing beside it. */
+.statement { padding-block: clamp(3rem, 8vw, 6rem); border-top: 1px solid var(--rule); }
+.statement-q {
+  font-family: var(--serif); font-size: var(--text-h1);
+  line-height: var(--leading-h1); letter-spacing: var(--tracking-h1);
+  margin: 0; max-width: 24ch; text-wrap: balance;
+}
+.statement-acts { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin: var(--space-lg) 0 0; }
+
+/* The desk form on the recognition page. Narrower than the page, because a
+   form wider than about 32rem reads as a wall rather than a sequence. */
+.deskform { max-width: 32rem; margin-top: var(--space-md); }
+.deskform .cta-body { margin: 0 0 var(--space-md); }
