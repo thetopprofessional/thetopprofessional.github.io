@@ -1,2 +1,8 @@
 User-agent: *
+Allow: /$
+Allow: /recognition/
+Allow: /method/
+Allow: /about/
 Disallow: /
+
+Sitemap: https://thetopprofessional.com/sitemap.xml
