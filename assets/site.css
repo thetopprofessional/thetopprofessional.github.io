@@ -400,7 +400,7 @@ a:hover { color: var(--accent-2); }
   overflow: hidden;
 }
 
-.hero-grid { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: end; }
+.hero-grid { display: grid; gap: clamp(2rem, 5vw, 3rem); align-items: end; }
 @media (min-width: 52rem) {
   .hero-grid.has-portrait { grid-template-columns: minmax(0, 1fr) 17rem; }
 }
@@ -443,7 +443,7 @@ h1 {
    across two lines. Separation is space, not a drawn rule: a rule sits on the
    ::before of each item after the first, and when the line wrapped it left a
    stray bar hanging at the start of the new line. */
-.hero-meta { gap: 0.4rem 2.25rem; }
+.hero-meta { gap: 0.5rem 2rem; }
 .hero-meta span { white-space: nowrap; display: inline-flex; align-items: center; gap: 0.35rem; }
 
 /* ------------------------------------------------------------- the portrait */
@@ -499,11 +499,11 @@ h1 {
    the evidence, aligned to the paragraph that cites it. Below 64rem the
    margin has nowhere to go, so the notes are dropped and the full source list
    at the foot of the page carries the whole job. */
-.prose-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.4em 2.5rem; }
+.prose-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5em 3rem; }
 @media (min-width: 64rem) {
   .prose-grid {
     grid-template-columns: minmax(0, var(--measure)) var(--margin-col);
-    column-gap: 2.5rem;
+    column-gap: 3rem;
   }
 }
 
@@ -587,7 +587,7 @@ blockquote p {
 }
 .sources ol {
   margin: 0; padding: 0; list-style: none; counter-reset: src;
-  display: grid; gap: 1.25rem; max-width: 48rem;
+  display: grid; gap: var(--space-md); max-width: 48rem;
 }
 .sources li {
   counter-increment: src; position: relative; padding-left: 2.5rem;
@@ -612,7 +612,7 @@ blockquote p {
 .listing li { border-top: 1px solid var(--rule); }
 .listing li:last-child { border-bottom: 1px solid var(--rule); }
 .listing a {
-  display: grid; gap: 0.3rem 2rem; padding-block: 1.75rem;
+  display: grid; gap: var(--space-2xs) var(--space-lg); padding-block: var(--space-md);
   text-decoration: none; color: inherit;
   transition: background-color 0.2s var(--ease);
 }
@@ -1590,4 +1590,35 @@ blockquote p {
 .arthero-fig .efig-cap { margin-top: var(--space-2xs); }
 @media (min-width: 60rem) {
   .arthero-in { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--space-2xl); }
+}
+
+/* ------------------------------------------------- touch targets at 390px */
+
+/* The design review measured the navigation, the footer links and the
+   wordmark at 26px and 22px tall on a phone. The rule is 44 by 44, so the
+   tap area is grown with padding rather than by making the type bigger: the
+   type size is correct, the hit box was not.
+   Padding is used rather than min-height so the link box grows around the
+   text and nothing reflows on wider screens. */
+@media (max-width: 46rem) {
+  .masthead-nav a,
+  .foot nav a,
+  .foot-fine a {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; min-width: 44px; padding-block: 0.5rem;
+  }
+  /* Links inside the source list and the contact routes are standalone
+     controls, not words in a sentence, so they carry the same floor. They
+     were measuring 17px and 23px tall, which fails even the 24px minimum. */
+  .btn,
+  .src-title,
+  .croute-to,
+  .more a,
+  .latest-all a {
+    display: inline-flex; align-items: center;
+    min-height: 44px; padding-block: 0.5rem;
+  }
+  .masthead-nav ul, .foot nav ul { gap: 0 var(--space-md); }
+  .wordmark { min-height: 44px; }
+  /* A card is tapped on its whole area, so only standalone links need this. */
 }
