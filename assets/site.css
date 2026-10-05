@@ -1687,3 +1687,84 @@ blockquote p {
   font-size: var(--text-body-sm); line-height: var(--leading-body-sm);
   color: var(--ink-2);
 }
+
+/* ============================================ the recognition objects ====
+   The print book, the certificate plaque and the physical award. Image on one
+   side, a short statement on the other, alternating down the page. The image
+   takes the wider column: on these three sections the object is the argument,
+   which is the reverse of the editorial sections elsewhere. */
+
+.robj { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+.robj + .robj { border-top: 1px solid var(--rule); }
+.robj-in { display: grid; gap: var(--space-lg); grid-template-columns: 1fr; align-items: center; }
+.robj-fig { margin: 0; min-width: 0; }
+.robj-fig img {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: var(--ratio-landscape); object-fit: cover;
+  border: 1px solid var(--rule);
+}
+/* The mockup disclosure. Set in the caption style, in the flag colour, so it
+   reads as a statement about the image rather than as a caption describing
+   it. It is never hidden behind a toggle. */
+.robj-cap {
+  font-family: var(--sans); font-size: var(--text-label);
+  line-height: var(--leading-caption); color: var(--flag);
+  margin-top: var(--space-2xs); max-width: var(--measure-sm);
+}
+.robj-text { min-width: 0; }
+.robj-title {
+  font-size: var(--text-h3); line-height: var(--leading-h3);
+  margin: var(--space-2xs) 0 0; text-wrap: balance;
+}
+.robj-body {
+  font-size: var(--text-body); line-height: var(--leading-body);
+  color: var(--ink-2); margin: var(--space-sm) 0 0; max-width: var(--measure);
+}
+@media (min-width: 60rem) {
+  .robj-in { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-2xl); }
+  .robj-flip .robj-fig { order: 2; }
+  .robj-flip .robj-text { order: 1; }
+}
+
+/* ------------------------------------------------------------ breadcrumbs */
+
+.crumbs { border-bottom: 1px solid var(--rule); background: var(--paper); }
+.crumbs ol {
+  list-style: none; margin: 0; padding-block: var(--space-2xs);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--space-2xs);
+  font-family: var(--sans); font-size: var(--text-label);
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3);
+}
+/* The separator is drawn, not typed, so a screen reader reads the labels and
+   nothing between them. */
+.crumb + .crumb::before {
+  content: ''; display: inline-block; width: 0.55rem; height: 1px;
+  background: var(--rule-strong); margin-right: var(--space-2xs);
+  vertical-align: middle;
+}
+.crumbs a { color: var(--ink-3); text-decoration-color: var(--rule-strong); }
+.crumbs a:hover { color: var(--accent); }
+.crumbs [aria-current="page"] { color: var(--ink-2); }
+
+/* ------------------------------------------------------------ empty state */
+
+.empty {
+  border: 1px solid var(--rule); background: var(--paper-sunk);
+  padding: var(--space-lg); max-width: var(--measure);
+}
+.empty-title { font-family: var(--serif); font-size: var(--text-h3); margin: 0; }
+.empty-body {
+  font-size: var(--text-body-sm); line-height: var(--leading-body-sm);
+  color: var(--ink-2); margin: var(--space-2xs) 0 0; max-width: var(--measure-sm);
+}
+.empty-act { margin: var(--space-sm) 0 0; }
+
+@media (max-width: 46rem) {
+  .crumbs a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+
+/* A section header that introduces the run of objects beneath it. Both it and
+   the first object carried a full section's padding, which stacked into a
+   screen of empty paper between the heading and the thing it introduced. */
+.split-intro { padding-bottom: 0; }
+.split-intro + .robj { padding-top: var(--space-lg); }
