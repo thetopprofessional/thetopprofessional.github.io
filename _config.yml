@@ -3,3 +3,5 @@
 plugins: []
 exclude: []
 include: ['.well-known']
+
+# touch to trigger a Pages rebuild after a timed out build
