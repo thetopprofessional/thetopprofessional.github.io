@@ -143,6 +143,10 @@
   /* --- Layout --- */
   --gutter: clamp(1.25rem, 4vw, 3rem);
   --measure: 34rem;           /* reading column: about 68 characters */
+  /* The same column for small text. 34rem of 14px type runs to 86 characters,
+     well past the line return the eye can follow, so apparatus text gets its
+     own measure rather than borrowing the body one. */
+  --measure-sm: 26rem;        /* about 65 characters at the small size */
   --margin-col: 15rem;        /* the source margin beside the reading column */
   --container-prose: 34rem;
   --container-text: 48rem;
@@ -655,7 +659,7 @@ blockquote p {
   letter-spacing: -0.016em;
 }
 .listing a:hover .name { color: var(--accent); }
-.listing .about { font-size: var(--text-body-compact); color: var(--ink-2); line-height: 1.45; max-width: var(--measure); }
+.listing .about { font-size: var(--text-body-compact); color: var(--ink-2); line-height: 1.45; max-width: var(--measure-sm); }
 .listing .where {
   font-family: var(--sans); font-size: var(--text-label); letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--ink-3);
@@ -1219,7 +1223,7 @@ blockquote p {
   letter-spacing: var(--tracking-meta); text-transform: uppercase;
   font-weight: var(--weight-semibold); margin: 0 0 var(--space-3xs); color: var(--ink);
 }
-.step-body { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); margin: 0; max-width: var(--measure); }
+.step-body { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); margin: 0; max-width: var(--measure-sm); }
 @media (min-width: 64rem) {
   .steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-md); }
   .step { padding-left: 0; padding-bottom: 0; padding-top: var(--space-md); border-top: 1px solid var(--rule); }
@@ -1365,7 +1369,7 @@ blockquote p {
   letter-spacing: var(--tracking-meta); text-transform: uppercase;
   font-weight: var(--weight-semibold); margin: 0; color: var(--ink);
 }
-.croute-body { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); margin: 0; max-width: var(--measure); }
+.croute-body { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); margin: 0; max-width: var(--measure-sm); }
 .croute-to { display: inline-block; margin-top: var(--space-2xs); font-family: var(--sans); font-size: var(--text-body-sm); }
 @media (min-width: 52rem) {
   .croute { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: var(--space-md); align-items: baseline; }
@@ -1520,7 +1524,7 @@ blockquote p {
   font-family: var(--serif); font-size: var(--text-h3); line-height: var(--leading-h3);
   letter-spacing: var(--tracking-h3); color: var(--ink); overflow-wrap: break-word;
 }
-.rcard-sub { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); max-width: var(--measure); }
+.rcard-sub { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); max-width: var(--measure-sm); }
 .rcard-go {
   font-family: var(--sans); font-size: var(--text-meta); letter-spacing: var(--tracking-meta);
   text-transform: uppercase; font-weight: var(--weight-semibold); color: var(--accent);
@@ -1621,4 +1625,65 @@ blockquote p {
   .masthead-nav ul, .foot nav ul { gap: 0 var(--space-md); }
   .wordmark { min-height: 44px; }
   /* A card is tapped on its whole area, so only standalone links need this. */
+}
+
+/* ===================================================== the profile page ==
+   Rebuilt on the editorial system. The portrait now sits in the same ruled
+   frame as every other figure on the site, the fact strip carries icons from
+   the one icon set, and the release a person has to their name is presented
+   as the card it is rather than as a sentence with a link in it. */
+
+/* A photograph, a generated likeness and a drawn plate all occupy this frame
+   at the same ratio, so none of the three is presented as more real than
+   another. */
+.efig-portrait .efig-frame { padding: var(--space-3xs); background: var(--paper); }
+.efig-portrait img,
+.efig-portrait .plate {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: var(--ratio-portrait); object-fit: cover;
+}
+/* The caption under a portrait is a sentence of disclosure, not a label, so
+   it drops the uppercase treatment the drawn figures use. Set in uppercase it
+   read as a heading and the disclosure stopped being legible as a statement. */
+.efig-portrait .efig-cap {
+  text-transform: none; letter-spacing: 0.01em;
+  line-height: 1.5; max-width: var(--measure-sm);
+}
+
+/* The name is the one big thing on the page, so the portrait takes the
+   narrower column and the two align on their baselines rather than centring. */
+@media (min-width: 60rem) {
+  .ihero-portrait { grid-template-columns: minmax(0, 8fr) minmax(0, 3fr); align-items: end; }
+}
+
+/* One release under a profile: the row needs its own lower rule, because
+   there is no following row to draw one. */
+.rgrid-solo { border-bottom: 1px solid var(--rule); }
+
+/* The fact strip, with an icon per pair. */
+.facts dt { display: flex; align-items: center; gap: var(--space-3xs); }
+.facts dt .ic {
+  width: var(--icon-sm); height: var(--icon-sm);
+  color: var(--accent); flex: none;
+}
+
+/* A section heading with a drawn figure beside it.
+   The alternative, a figure in the narrow column of a split with the content
+   in the wide one, squeezed three evidence cards into a column too narrow to
+   read. The heading takes the figure; the cards keep the measure of the
+   sheet. */
+.shead-row { display: grid; gap: var(--space-lg); grid-template-columns: 1fr; align-items: center; }
+.shead-row .efig { margin-top: 0; }
+.shead-fig { min-width: 0; }
+@media (min-width: 60rem) {
+  .shead-row { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-2xl); }
+}
+
+/* A second paragraph, or a link, inside the heading block. It sits on the
+   heading's left edge rather than the content column's, so a numbered section
+   still reads as having one axis. */
+.shead-more {
+  max-width: var(--measure-sm); margin: var(--space-sm) 0 0;
+  font-size: var(--text-body-sm); line-height: var(--leading-body-sm);
+  color: var(--ink-2);
 }
