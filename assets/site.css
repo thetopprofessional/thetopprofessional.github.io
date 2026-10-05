@@ -463,12 +463,16 @@ h1 {
 }
 .portrait figcaption .synthetic { color: var(--flag); font-weight: 600; }
 
-/* The drawn plate for someone with no photograph. */
-.plate { background: var(--accent-wash); color: var(--accent); }
-.plate-figure { opacity: 0.45; }
+/* The drawn plate for someone with no photograph.
+   It sits on paper, not on a burgundy wash. A single plate in a margin could
+   carry the wash; sixty one of them in a directory grid turned whole screens
+   pink, which is exactly what the brand rule forbids. The accent is now only
+   in the monogram and the line work, at low weight. */
+.plate { background: var(--paper-sunk); color: var(--rule-strong); }
+.plate-figure { opacity: 0.4; }
 .plate-mono {
   font-family: var(--serif); font-size: 128px; font-weight: 400;
-  fill: var(--accent); letter-spacing: 0.02em;
+  fill: var(--accent); letter-spacing: 0.02em; opacity: 0.85;
 }
 
 /* ------------------------------------------------------------------- facts */
@@ -1383,3 +1387,168 @@ blockquote p {
    form wider than about 32rem reads as a wall rather than a sequence. */
 .deskform { max-width: 32rem; margin-top: var(--space-md); }
 .deskform .cta-body { margin: 0 0 var(--space-md); }
+
+/* ------------------------------------------------------------ person cards */
+
+/* The portrait is the anchor. Fixed 4:5, cover cropped, so no face is ever
+   squeezed. The card itself is a field with a rule, not a box with a shadow:
+   seventy four shadowed rectangles would read as a product grid. */
+.pgrid { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-lg); grid-template-columns: 1fr; }
+@media (min-width: 34rem) { .pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 60rem) { .pgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl) var(--space-lg); } }
+@media (min-width: 86rem) { .pgrid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.pgrid-solo { grid-template-columns: 1fr !important; }
+
+.pcard { min-width: 0; }
+.pcard-a {
+  display: grid; gap: var(--space-sm); text-decoration: none; color: inherit;
+  min-width: 0;
+}
+.pcard-shot {
+  display: block; position: relative; line-height: 0;
+  border: 1px solid var(--rule-strong); padding: 2px; background: var(--paper);
+}
+.pcard-shot > img, .pcard-shot > .plate {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: var(--ratio-portrait); object-fit: cover;
+}
+.pcard-gen {
+  position: absolute; left: 2px; bottom: 2px; right: 2px;
+  font-family: var(--sans); font-size: var(--text-label-sm);
+  letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4;
+  background: var(--ink); color: var(--ink-inverse);
+  padding: 0.3rem 0.5rem;
+}
+.pcard-body { display: grid; gap: var(--space-3xs); min-width: 0; }
+.pcard-eyebrow, .pcard-sec {
+  font-family: var(--sans); font-size: var(--text-label);
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
+}
+.pcard-eyebrow { color: var(--accent); font-weight: var(--weight-semibold); }
+.pcard-name {
+  font-family: var(--serif); font-size: var(--text-h3); line-height: var(--leading-h3);
+  letter-spacing: var(--tracking-h3); color: var(--ink); overflow-wrap: break-word;
+}
+.pcard-role { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink); }
+.pcard-place {
+  font-family: var(--sans); font-size: var(--text-label);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3);
+}
+.pcard-about { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); }
+.pcard-go {
+  font-family: var(--sans); font-size: var(--text-meta); letter-spacing: var(--tracking-meta);
+  text-transform: uppercase; font-weight: var(--weight-semibold); color: var(--accent);
+  margin-top: var(--space-3xs);
+}
+.pcard-a:hover .pcard-name { color: var(--accent); }
+.pcard-a:hover .pcard-shot { border-color: var(--accent); }
+
+/* The feature card: portrait beside the text, name at heading size. One per
+   grid. At narrow widths it is just a standard card again. */
+@media (min-width: 60rem) {
+  .pgrid-feature { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .pcard-feature { grid-column: span 2; grid-row: span 2; }
+  .pcard-feature .pcard-a { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-lg); align-items: start; }
+  .pcard-feature .pcard-name { font-size: var(--text-h2); line-height: var(--leading-h2); letter-spacing: var(--tracking-h2); }
+  .pcard-feature .pcard-about { font-size: var(--text-body); line-height: var(--leading-body); }
+}
+@media (min-width: 86rem) { .pgrid-feature { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* The compact card: a small portrait beside two lines, for related people. */
+.pcard-compact .pcard-a { grid-template-columns: 3.25rem minmax(0, 1fr); gap: var(--space-sm); align-items: center; }
+.pcard-compact .pcard-name { font-size: var(--text-h4); line-height: var(--leading-h4); }
+
+/* --------------------------------------------------------- profession cards */
+
+/* Section covers. A rule, a quiet mark, the name, and the count in the serif.
+   Not six buttons: a contents page. */
+.secgrid { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; grid-template-columns: 1fr; border-top: 1px solid var(--rule); }
+@media (min-width: 40rem) { .secgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 64rem) { .secgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.seccard { border-bottom: 1px solid var(--rule); min-width: 0; }
+@media (min-width: 40rem) { .seccard:nth-child(2n) { border-left: 1px solid var(--rule); } }
+@media (min-width: 64rem) {
+  .seccard:nth-child(2n) { border-left: 0; }
+  .seccard:not(:nth-child(3n + 1)) { border-left: 1px solid var(--rule); }
+}
+.seccard-a {
+  display: grid; gap: var(--space-2xs); text-decoration: none; color: inherit;
+  padding: var(--space-md); min-width: 0; height: 100%;
+  align-content: start;
+  transition: background-color var(--dur) var(--ease);
+}
+.seccard-a:hover { background: var(--paper-sunk); }
+.seccard-mark { color: var(--rule-strong); }
+.seccard-mark .ic { width: var(--icon-lg); height: var(--icon-lg); }
+.seccard-a:hover .seccard-mark { color: var(--accent); }
+.seccard-name {
+  font-family: var(--serif); font-size: var(--text-h3); line-height: var(--leading-h3);
+  letter-spacing: var(--tracking-h3);
+}
+.seccard-sum { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); }
+.seccard-foot {
+  display: flex; align-items: baseline; gap: 0.4rem; margin-top: var(--space-2xs);
+  padding-top: var(--space-2xs); border-top: 1px solid var(--rule);
+}
+.seccard-n {
+  font-family: var(--serif); font-size: var(--text-h4); color: var(--ink);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.seccard-lab, .seccard-go {
+  font-family: var(--sans); font-size: var(--text-label);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3);
+}
+.seccard-go { margin-left: auto; color: var(--accent); font-weight: var(--weight-semibold); }
+
+/* ------------------------------------------------------------ release cards */
+
+.rgrid { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.rcard { border-bottom: 1px solid var(--rule); min-width: 0; }
+.rcard-a {
+  display: grid; gap: var(--space-3xs); text-decoration: none; color: inherit;
+  padding-block: var(--space-md); min-width: 0;
+  transition: background-color var(--dur) var(--ease);
+}
+.rcard-a:hover { background: var(--paper-sunk); }
+.rcard-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.75rem; }
+.rcard-sec, .rcard-date, .rcard-lead {
+  font-family: var(--sans); font-size: var(--text-label);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3);
+}
+.rcard-lead { color: var(--accent); font-weight: var(--weight-semibold); }
+.rcard-title {
+  font-family: var(--serif); font-size: var(--text-h3); line-height: var(--leading-h3);
+  letter-spacing: var(--tracking-h3); color: var(--ink); overflow-wrap: break-word;
+}
+.rcard-sub { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); max-width: var(--measure); }
+.rcard-go {
+  font-family: var(--sans); font-size: var(--text-meta); letter-spacing: var(--tracking-meta);
+  text-transform: uppercase; font-weight: var(--weight-semibold); color: var(--accent);
+  margin-top: var(--space-2xs);
+}
+.rcard-a:hover .rcard-title { color: var(--accent); }
+.rcard-feature .rcard-title { font-size: var(--text-h2); line-height: var(--leading-h2); letter-spacing: var(--tracking-h2); }
+.rcard-feature .rcard-sub { font-size: var(--text-body); line-height: var(--leading-body); }
+
+/* --------------------------------------------------------------- home hero */
+
+.hero-home { padding-block: clamp(2.5rem, 7vw, 5rem); }
+.hero-in { display: grid; gap: var(--space-xl); grid-template-columns: 1fr; align-items: center; }
+.hero-title {
+  font-size: var(--text-display); line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display); margin: var(--space-2xs) 0 0; text-wrap: balance;
+}
+.hero-lede {
+  font-size: var(--text-body-lg); line-height: var(--leading-body-lg);
+  color: var(--ink-2); margin: var(--space-md) 0 0; max-width: var(--measure);
+}
+.hero-fig { min-width: 0; }
+.hero-fig .efig { margin-top: 0; }
+@media (min-width: 60rem) { .hero-in { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-2xl); } }
+
+/* A mark inside an eyebrow, used on the category heroes. */
+.eyebrow-mark { display: inline-block; vertical-align: -0.2em; margin-right: 0.4rem; color: var(--rule-strong); }
+.eyebrow-mark .ic { width: var(--icon-sm); height: var(--icon-sm); }
+/* An empty section is not a link, so it must not look like one. */
+.seccard-empty .seccard-a { cursor: default; }
+.seccard-empty .seccard-name { color: var(--ink-3); }
