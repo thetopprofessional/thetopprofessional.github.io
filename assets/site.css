@@ -1552,3 +1552,42 @@ blockquote p {
 /* An empty section is not a link, so it must not look like one. */
 .seccard-empty .seccard-a { cursor: default; }
 .seccard-empty .seccard-name { color: var(--ink-3); }
+
+/* ----------------------------------------------------------- release hero */
+
+/* A release now opens like an article: the headline and the feature image
+   side by side, with the deck under the headline rather than floating. The
+   image is the same 4:5 portrait treatment used everywhere else, so a person
+   looks the same whether they are met in the directory or at the top of a
+   release. */
+.arthero { padding-block: clamp(2rem, 5vw, 3.5rem); border-bottom: 1px solid var(--rule); }
+.arthero-in { display: grid; gap: var(--space-lg); grid-template-columns: 1fr; align-items: center; }
+.arthero-title {
+  font-size: var(--text-h1); line-height: var(--leading-h1);
+  letter-spacing: var(--tracking-h1); margin: var(--space-2xs) 0 0; text-wrap: balance;
+}
+.arthero-deck {
+  font-size: var(--text-body-lg); line-height: var(--leading-body-lg);
+  color: var(--ink-2); margin: var(--space-sm) 0 0; max-width: var(--measure);
+}
+.arthero-meta { margin: var(--space-md) 0 0; }
+.arthero-dot { display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: currentColor; vertical-align: middle; margin-inline: 0.2rem; }
+.arthero-fig { margin: 0; min-width: 0; }
+.artshot {
+  position: relative; display: block; line-height: 0;
+  border: 1px solid var(--rule-strong); padding: 2px; background: var(--paper);
+}
+.artshot > img, .artshot > .plate {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: var(--ratio-portrait); object-fit: cover;
+}
+.artshot-gen {
+  position: absolute; left: 2px; bottom: 2px; right: 2px;
+  font-family: var(--sans); font-size: var(--text-label-sm);
+  letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4;
+  background: var(--ink); color: var(--ink-inverse); padding: 0.3rem 0.5rem;
+}
+.arthero-fig .efig-cap { margin-top: var(--space-2xs); }
+@media (min-width: 60rem) {
+  .arthero-in { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--space-2xl); }
+}
