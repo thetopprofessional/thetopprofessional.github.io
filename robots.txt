@@ -3,6 +3,7 @@ Allow: /$
 Allow: /recognition/
 Allow: /method/
 Allow: /about/
+Allow: /corrections/
 Allow: /assets/
 Allow: /portraits/
 Allow: /sitemap.xml
