@@ -4,6 +4,7 @@ Allow: /recognition/
 Allow: /method/
 Allow: /about/
 Allow: /corrections/
+Allow: /media-authority-program/
 Allow: /assets/
 Allow: /portraits/
 Allow: /sitemap.xml
