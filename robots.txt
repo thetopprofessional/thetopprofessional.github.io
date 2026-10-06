@@ -3,6 +3,9 @@ Allow: /$
 Allow: /recognition/
 Allow: /method/
 Allow: /about/
+Allow: /assets/
+Allow: /portraits/
+Allow: /sitemap.xml
 Disallow: /
 
 Sitemap: https://thetopprofessional.com/sitemap.xml
