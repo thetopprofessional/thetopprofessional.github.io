@@ -1416,12 +1416,16 @@ blockquote p {
   display: block; width: 100%; height: auto;
   aspect-ratio: var(--ratio-portrait); object-fit: cover;
 }
+/* The likeness disclosure.
+   It was a solid black bar stamped across the bottom of every portrait, which
+   dominated the card and made a grid of people look like a grid of warnings.
+   The fact has to stay while the likeness is generated, but it belongs beside
+   the picture at the weight of a caption, not across the subject's chest. */
 .pcard-gen {
-  position: absolute; left: 2px; bottom: 2px; right: 2px;
+  display: block; margin-top: var(--space-3xs);
   font-family: var(--sans); font-size: var(--text-label-sm);
-  letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4;
-  background: var(--ink); color: var(--ink-inverse);
-  padding: 0.3rem 0.5rem;
+  letter-spacing: 0.04em; line-height: var(--leading-caption);
+  color: var(--ink-3);
 }
 .pcard-body { display: grid; gap: var(--space-3xs); min-width: 0; }
 .pcard-eyebrow, .pcard-sec {
@@ -1585,11 +1589,12 @@ blockquote p {
   display: block; width: 100%; height: auto;
   aspect-ratio: var(--ratio-portrait); object-fit: cover;
 }
+/* Same change as the card: a caption beside the picture, not a bar across it. */
 .artshot-gen {
-  position: absolute; left: 2px; bottom: 2px; right: 2px;
+  display: block; margin-top: var(--space-3xs);
   font-family: var(--sans); font-size: var(--text-label-sm);
-  letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4;
-  background: var(--ink); color: var(--ink-inverse); padding: 0.3rem 0.5rem;
+  letter-spacing: 0.04em; line-height: var(--leading-caption);
+  color: var(--ink-3);
 }
 .arthero-fig .efig-cap { margin-top: var(--space-2xs); }
 @media (min-width: 60rem) {
@@ -1703,13 +1708,15 @@ blockquote p {
   aspect-ratio: var(--ratio-landscape); object-fit: cover;
   border: 1px solid var(--rule);
 }
-/* The mockup disclosure. Set in the caption style, in the flag colour, so it
-   reads as a statement about the image rather than as a caption describing
-   it. It is never hidden behind a toggle. */
-.robj-cap {
-  font-family: var(--sans); font-size: var(--text-label);
-  line-height: var(--leading-caption); color: var(--flag);
-  margin-top: var(--space-2xs); max-width: var(--measure-sm);
+/* The product images carry no stamp. These depict items the publication will
+   actually supply, chosen from a real catalogue, so "images are
+   representative" is a terms statement and belongs with the other terms, not
+   printed across the picture. The invented people are a different case and
+   keep their disclosure. */
+.robj-note {
+  font-family: var(--sans); font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm); color: var(--ink-3);
+  margin: var(--space-md) 0 0; max-width: var(--measure-sm);
 }
 .robj-text { min-width: 0; }
 .robj-title {
@@ -1768,3 +1775,7 @@ blockquote p {
    screen of empty paper between the heading and the thing it introduced. */
 .split-intro { padding-bottom: 0; }
 .split-intro + .robj { padding-top: var(--space-lg); }
+
+/* A short terms line closing a run of sections: no heading, no padding above,
+   because the block it belongs to has already provided it. */
+.split-tight { padding-top: 0; }
