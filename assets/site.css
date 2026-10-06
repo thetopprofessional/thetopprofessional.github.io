@@ -2324,8 +2324,8 @@ blockquote p {
 .mp-close-sub { margin: var(--space-md) 0 0; max-width: 34rem; color: var(--mp-ivory-2); }
 .mp-close-ladder { list-style: none; margin: var(--space-xl) 0 0; padding: 0; display: grid; gap: 1px; background: var(--mp-rule-dark); border: 1px solid var(--mp-rule-dark); }
 @media (min-width: 34rem) { .mp-close-ladder { grid-template-columns: repeat(2, 1fr); } }
-.mp-close-ladder a { display: grid; gap: 2px; padding: var(--space-md); text-decoration: none; background: rgba(14, 13, 11, 0.5); transition: background var(--dur-fast) var(--ease); }
-.mp-close-ladder a:hover { background: rgba(14, 13, 11, 0.8); }
+.mp-close-ladder a { display: grid; gap: 2px; padding: var(--space-md); text-decoration: none; background: var(--mp-black); transition: background var(--dur-fast) var(--ease); }
+.mp-close-ladder a:hover { background: var(--mp-char); }
 .mp-close-ladder a:focus-visible { outline: 2px solid var(--mp-ochre); outline-offset: -2px; }
 .mp-close-money { font-family: var(--serif); font-size: var(--text-h2); line-height: 1; color: var(--mp-ivory); font-variant-numeric: lining-nums tabular-nums; }
 .mp-close-name { font-family: var(--sans); font-size: var(--text-caption); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mp-ochre); }
@@ -2390,3 +2390,44 @@ blockquote p {
    dark gold. Black on ochre measures 8.03 and is fixed in both schemes. */
 .mp-pcard-3 .mp-pcard-badge { background: var(--mp-ochre); color: var(--mp-black); }
 .mp-pcard-4 .mp-pcard-badge { background: var(--mp-ivory); color: var(--mp-black); }
+
+/* The timeline beside a photograph stacks rather than running across five
+   columns, because half the width cannot carry five. */
+.mp-tl-stack { grid-template-columns: 1fr !important; gap: var(--space-lg) !important; }
+.mp-tl-stack li { padding-left: var(--space-xl) !important; padding-top: 0 !important; }
+.mp-tl-stack li::before { left: 0.45rem !important; right: auto !important; top: 0.4rem !important; bottom: -1.25rem !important; width: 1px !important; height: auto !important; }
+.mp-tl-stack li::after { top: 0.3rem !important; }
+
+/* The closing band carries the skyline behind its gradient. The photograph is
+   atmosphere, not a subject: it sits under a burgundy to black wash heavy
+   enough that the ivory text keeps its measured contrast, which is why the
+   opacity is this low and the gradient is painted over it rather than beside
+   it. */
+/* Stacking, carefully. A pseudo-element with a negative z-index paints behind
+   its parent's own background once the parent makes a stacking context, which
+   is where the photograph went the first time: present, loaded, and invisible.
+   So the band's background is only a fallback colour, the image and the wash
+   are positive layers above it, and the content sits above both. */
+/* The ochre hairline is drawn with a border here rather than by adding the
+   mp-edge class. An element has one ::before, and mp-edge's claims it for a one
+   pixel strip: with both classes on this section the photograph was painting
+   into a 1px tall box at 0.7 opacity, which is why it was loading, resolving
+   and still invisible. Two rules can target the same pseudo-element and quietly
+   merge. */
+.mp-close { background: var(--mp-black); isolation: isolate; border-top: 1px solid rgba(201, 162, 39, 0.5); }
+.mp-close::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  /* The path is written here rather than passed in through a custom property
+     set on the element. A url() inside a custom property declared in an inline
+     style did not paint at all: the computed value read back correctly and the
+     image was simply never fetched. In a stylesheet the url resolves against
+     the stylesheet's own location, which is also why this needs no ../ and
+     works at every page depth. */
+  background-image: url('imagery/mp-skyline.jpg');
+  background-size: cover; background-position: center right;
+}
+.mp-close::after {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(105deg, rgba(74,10,14,0.97) 0%, rgba(50,10,13,0.9) 42%, rgba(20,12,12,0.46) 100%);
+}
+.mp-close > .sheet { position: relative; z-index: 2; }
