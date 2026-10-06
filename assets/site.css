@@ -1779,3 +1779,432 @@ blockquote p {
 /* A short terms line closing a run of sections: no heading, no padding above,
    because the block it belongs to has already provided it. */
 .split-tight { padding-top: 0; }
+
+/* ==========================================================================
+   THE MEDIA AUTHORITY PROGRAM
+   --------------------------------------------------------------------------
+   One offer, one page. Everything below is scoped to classes that appear only
+   on that page, so nothing here can reach the institutional pages.
+
+   The page has to do something the rest of the site never does: sell. That
+   pulls against the editorial restraint everywhere else, and the resolution is
+   that the selling is done by hierarchy rather than by decoration. There is
+   one raised card, one burgundy button per view, and no gradient, glass or
+   shadow stack anywhere. The figures are the loudest thing on the page, which
+   is correct, because they are the argument.
+   ========================================================================= */
+
+/* --- figure parts used only by this page's drawings --- */
+.mp-fg-dot { fill: var(--accent); }
+.mp-fg-core { fill: var(--paper-raised); stroke: var(--accent); stroke-width: 1.5; }
+.mp-fg-core-label { fill: var(--ink); }
+.mp-fg-bar { fill: var(--rule-strong); }
+.mp-fg-bar-last { fill: var(--accent); }
+
+/* --- bands. The page alternates paper and sunk paper so twenty sections do
+       not read as one scroll. --- */
+.mp-band { background: var(--paper-sunk); padding-block: clamp(3rem, 7vw, 5rem); }
+.mp-band-quiet { background: var(--paper); border-block: 1px solid var(--rule); }
+.mp-band-close {
+  max-width: var(--measure); margin: var(--space-xl) 0 0;
+  font-family: var(--serif); font-size: var(--text-body-lg);
+  line-height: var(--leading-body-lg); color: var(--ink);
+}
+
+/* --- hero additions --- */
+.mp-ihero-note {
+  margin-top: var(--space-sm); max-width: var(--measure);
+  font-family: var(--sans); font-size: var(--text-body); color: var(--ink-2);
+  font-weight: var(--weight-medium);
+}
+.mp-ihero-trust {
+  margin-top: var(--space-md); max-width: var(--measure);
+  font-family: var(--sans); font-size: var(--text-caption);
+  letter-spacing: 0.03em; line-height: var(--leading-caption); color: var(--ink-3);
+}
+.mp-lede-body {
+  max-width: var(--measure); font-family: var(--serif);
+  font-size: var(--text-body-lg); line-height: var(--leading-body-lg); color: var(--ink);
+}
+.mp-split-note {
+  max-width: var(--measure-sm); margin-top: var(--space-md);
+  font-family: var(--sans); font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm); color: var(--ink-2);
+}
+
+/* --- the numbered flow --- */
+.mp-flow { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.mp-flow-step {
+  display: grid; grid-template-columns: 2.5rem 1fr; gap: 0 var(--space-sm);
+  padding: var(--space-md) 0; border-top: 1px solid var(--rule);
+  align-items: baseline;
+}
+.mp-flow-step:last-child { border-bottom: 1px solid var(--rule); }
+.mp-flow-n {
+  grid-row: span 2; font-family: var(--sans); font-size: var(--text-label);
+  font-weight: var(--weight-semibold); color: var(--accent);
+  letter-spacing: 0.06em; font-variant-numeric: tabular-nums;
+}
+.mp-flow-label {
+  font-family: var(--serif); font-size: var(--text-h4);
+  line-height: var(--leading-h4); color: var(--ink);
+}
+.mp-flow-body {
+  font-family: var(--sans); font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm); color: var(--ink-2); margin-top: var(--space-3xs);
+}
+
+/* --- two column comparison --- */
+.mp-vs { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+.mp-vs-col { padding: var(--space-lg); background: var(--paper-raised); border: 1px solid var(--rule); }
+.mp-vs-strong { border-color: var(--rule-strong); }
+.mp-vs-head {
+  margin: 0; font-family: var(--serif); font-size: var(--text-h3);
+  line-height: var(--leading-h3); color: var(--ink);
+}
+.mp-vs-sub {
+  margin: var(--space-3xs) 0 var(--space-md); font-family: var(--sans);
+  font-size: var(--text-label); letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+.mp-vs-list { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-2xs); }
+.mp-vs-list li {
+  font-family: var(--sans); font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm); color: var(--ink-2);
+  padding-left: var(--space-md); position: relative;
+}
+.mp-vs-list li::before {
+  content: ''; position: absolute; left: 0; top: 0.55em;
+  width: 8px; height: 1px; background: var(--rule-strong);
+}
+.mp-vs-strong .mp-vs-list li::before { background: var(--accent); }
+.mp-vs-mid {
+  margin: 0; text-align: center; font-family: var(--sans);
+  font-size: var(--text-label); letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+@media (min-width: 60rem) {
+  .mp-vs { grid-template-columns: 1fr auto 1fr; align-items: start; gap: var(--space-xl); }
+  .mp-vs-mid { padding-top: var(--space-2xl); }
+}
+
+/* --- definitions and dimensions --- */
+.mp-defs, .mp-dims { display: grid; gap: var(--space-lg); margin-top: var(--space-lg); }
+.mp-dims { margin-top: var(--space-xl); }
+@media (min-width: 48rem) { .mp-dims { grid-template-columns: repeat(3, 1fr); } }
+.mp-def-head, .mp-dim-head {
+  margin: 0 0 var(--space-2xs); font-family: var(--sans);
+  font-size: var(--text-label); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent); font-weight: var(--weight-semibold);
+}
+.mp-def p, .mp-dim p {
+  margin: 0; max-width: var(--measure-sm); font-family: var(--sans);
+  font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2);
+}
+
+/* --- pricing --- */
+.mp-pricing { padding-block: clamp(3rem, 7vw, 5rem); }
+.mp-pgrid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); align-items: start; }
+@media (min-width: 46rem) { .mp-pgrid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 72rem) { .mp-pgrid { grid-template-columns: repeat(4, 1fr); gap: var(--space-md); } }
+
+.mp-pcard {
+  position: relative; display: flex; flex-direction: column;
+  padding: var(--space-lg); background: var(--paper-raised);
+  border: 1px solid var(--rule); min-width: 0;
+}
+/* The one raised card. Essential is the conversion package, so it is the only
+   one lifted off the page. Lifting all four lifts none of them. */
+.mp-pcard-feature { border-color: var(--accent); box-shadow: var(--shadow-md); }
+@media (min-width: 72rem) { .mp-pcard-feature { margin-top: -1.25rem; padding-block: calc(var(--space-lg) + 0.625rem); } }
+.mp-pcard-flagship { border-color: var(--rule-strong); background: var(--paper-sunk); }
+.mp-pcard-badge {
+  position: absolute; top: 0; left: var(--space-lg); transform: translateY(-50%);
+  margin: 0; padding: 0.25rem 0.6rem; background: var(--accent); color: var(--on-accent);
+  font-family: var(--sans); font-size: var(--text-label); font-weight: var(--weight-semibold);
+  letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+}
+.mp-pcard-flagship .mp-pcard-badge { background: var(--ink); }
+.mp-pcard-head { margin-bottom: var(--space-md); }
+.mp-pcard-name {
+  margin: 0; font-family: var(--serif); font-size: var(--text-h3);
+  line-height: var(--leading-h3); color: var(--ink);
+}
+.mp-pcard-tag {
+  margin: var(--space-3xs) 0 0; font-family: var(--sans);
+  font-size: var(--text-label); letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+.mp-pcard-price { margin: 0; display: flex; align-items: baseline; gap: var(--space-2xs); flex-wrap: wrap; }
+.mp-pcard-amount {
+  font-family: var(--serif); font-size: var(--text-h1); line-height: 1;
+  color: var(--ink); font-variant-numeric: tabular-nums;
+}
+.mp-pcard-per { font-family: var(--sans); font-size: var(--text-body-sm); color: var(--ink-3); }
+.mp-pcard-annual {
+  margin: var(--space-2xs) 0 0; font-family: var(--sans);
+  font-size: var(--text-body-sm); color: var(--ink-2); font-variant-numeric: tabular-nums;
+}
+.mp-pcard-promise {
+  margin: var(--space-md) 0 0; padding-top: var(--space-md);
+  border-top: 1px solid var(--rule); font-family: var(--serif);
+  font-size: var(--text-body); line-height: var(--leading-body); color: var(--ink);
+}
+.mp-pcard-list { margin: var(--space-md) 0 0; padding: 0; list-style: none; display: grid; gap: var(--space-2xs); }
+.mp-pcard-list li {
+  position: relative; padding-left: var(--space-md);
+  font-family: var(--sans); font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm); color: var(--ink-2);
+}
+.mp-pcard-list li::before {
+  content: ''; position: absolute; left: 0; top: 0.55em;
+  width: 8px; height: 1px; background: var(--rule-strong);
+}
+.mp-pcard-dests { margin-top: var(--space-md); }
+.mp-pcard-best {
+  margin: var(--space-md) 0 0; padding-top: var(--space-md);
+  border-top: 1px solid var(--rule); font-family: var(--sans);
+  font-size: var(--text-body-sm); line-height: var(--leading-body-sm);
+  color: var(--ink); font-weight: var(--weight-medium);
+}
+.mp-pcard-act { margin: var(--space-md) 0 0; padding-top: 0; }
+.mp-pcard-act .btn { width: 100%; justify-content: center; }
+.mp-pricing-note {
+  margin: var(--space-xl) 0 0; max-width: var(--measure);
+  font-family: var(--sans); font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm); color: var(--ink-3);
+}
+
+/* --- destinations. The host beside the name is the whole point. --- */
+.mp-dests { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.mp-dest {
+  display: grid; gap: 0 var(--space-xs); padding: var(--space-2xs) 0;
+  border-top: 1px solid var(--rule);
+  grid-template-columns: 1fr; align-items: baseline;
+}
+.mp-dest:last-child { border-bottom: 1px solid var(--rule); }
+.mp-dest-name {
+  font-family: var(--serif); font-size: var(--text-body); color: var(--ink);
+}
+.mp-dest-host {
+  font-family: var(--sans); font-size: var(--text-label); color: var(--ink-3);
+  word-break: break-word;
+}
+.mp-dest-kind {
+  font-family: var(--sans); font-size: var(--text-label);
+  letter-spacing: 0.03em; color: var(--ink-3);
+}
+.mp-dest-syndicated .mp-dest-kind { color: var(--flag); }
+/* Three columns only in the full list, which has the page width to itself. The
+   first version applied this everywhere, and inside a 250px pricing card it
+   wrapped every host one character to a line: a viewport media query cannot
+   see how wide the container it is styling actually is. */
+@media (min-width: 34rem) {
+  .mp-dests-full .mp-dest { grid-template-columns: minmax(8rem, 1fr) minmax(0, 1.2fr) auto; }
+  .mp-dests-full .mp-dest-kind { text-align: right; }
+}
+
+.mp-pcard-dest-line {
+  margin: 0; padding-top: var(--space-md); border-top: 1px solid var(--rule);
+  font-family: var(--serif); font-size: var(--text-body-sm);
+  line-height: 1.7; color: var(--ink);
+}
+.mp-pcard-dest-note {
+  margin: var(--space-2xs) 0 0; font-family: var(--sans);
+  font-size: var(--text-caption); line-height: var(--leading-caption); color: var(--ink-3);
+}
+.mp-dests-full { margin-top: var(--space-xl); }
+.mp-dests-head {
+  margin: 0 0 var(--space-sm); font-family: var(--sans); font-size: var(--text-label);
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2);
+  font-weight: var(--weight-semibold);
+}
+.mp-dests-note {
+  margin: var(--space-md) 0 0; max-width: var(--measure-sm);
+  font-family: var(--sans); font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm); color: var(--ink-3);
+}
+
+/* --- footprint figures --- */
+.mp-fgrid { display: grid; gap: var(--space-md); }
+@media (min-width: 42rem) { .mp-fgrid { grid-template-columns: repeat(3, 1fr); } }
+.mp-fcard { padding: var(--space-md); border: 1px solid var(--rule); background: var(--paper-raised); }
+.mp-fcard-head {
+  margin: 0 0 var(--space-sm); font-family: var(--serif);
+  font-size: var(--text-h4); line-height: var(--leading-h4); color: var(--ink);
+}
+.mp-fprint { margin: 0; display: grid; gap: var(--space-2xs); }
+.mp-fprint > div { display: flex; justify-content: space-between; gap: var(--space-sm); align-items: baseline; border-top: 1px solid var(--rule); padding-top: var(--space-2xs); }
+.mp-fprint dt { font-family: var(--sans); font-size: var(--text-label); color: var(--ink-3); }
+.mp-fprint dd {
+  margin: 0; font-family: var(--serif); font-size: var(--text-body-lg);
+  color: var(--ink); font-variant-numeric: tabular-nums;
+}
+
+/* --- claims --- */
+.mp-claims { display: grid; gap: var(--space-lg); }
+@media (min-width: 46rem) { .mp-claims { grid-template-columns: repeat(2, 1fr); } }
+.mp-claim { padding: var(--space-lg); border: 1px solid var(--rule); background: var(--paper-raised); }
+.mp-claim-head {
+  margin: 0 0 var(--space-sm); font-family: var(--sans); font-size: var(--text-label);
+  letter-spacing: 0.08em; text-transform: uppercase; font-weight: var(--weight-semibold);
+}
+.mp-claim-is { border-left: 3px solid var(--affirm); }
+.mp-claim-is .mp-claim-head { color: var(--affirm); }
+.mp-claim-not { border-left: 3px solid var(--refuse); }
+.mp-claim-not .mp-claim-head { color: var(--refuse); }
+.mp-claim ul { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-2xs); }
+.mp-claim li {
+  position: relative; padding-left: var(--space-md);
+  font-family: var(--sans); font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm); color: var(--ink-2);
+}
+.mp-claim li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 8px; height: 1px; background: var(--rule-strong); }
+
+/* --- audiences --- */
+.mp-aud { list-style: none; margin: var(--space-xl) 0 0; padding: 0; display: grid; gap: var(--space-md); }
+@media (min-width: 40rem) { .mp-aud { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 64rem) { .mp-aud { grid-template-columns: repeat(3, 1fr); } }
+.mp-aud-card { padding: var(--space-lg); background: var(--paper-raised); border: 1px solid var(--rule); }
+.mp-aud-head {
+  margin: 0 0 var(--space-2xs); font-family: var(--serif);
+  font-size: var(--text-h4); line-height: var(--leading-h4); color: var(--ink);
+}
+.mp-aud-body {
+  margin: 0; font-family: var(--sans); font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm); color: var(--ink-2);
+}
+
+/* --- comparison table. Scrolls in its own box, never the page. --- */
+/* Shown only where the table actually has to scroll. A hint that is always
+   there is noise on a desktop, and its absence on a phone is the difference
+   between seeing four programs and seeing one. */
+.mp-ctable-hint { display: none; }
+@media (max-width: 44rem) {
+  .mp-ctable-hint {
+    display: block; margin: var(--space-xl) 0 var(--space-2xs);
+    font-family: var(--sans); font-size: var(--text-caption);
+    color: var(--ink-3);
+  }
+  .mp-ctable-hint + .mp-ctable-wrap { margin-top: 0; }
+}
+.mp-ctable-wrap { margin-top: var(--space-xl); overflow-x: auto; border: 1px solid var(--rule); background: var(--paper-raised); }
+.mp-ctable-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mp-ctable { border-collapse: collapse; width: 100%; min-width: 44rem; font-family: var(--sans); font-size: var(--text-body-sm); }
+.mp-ctable th, .mp-ctable td {
+  padding: var(--space-sm) var(--space-md); text-align: left;
+  border-bottom: 1px solid var(--rule); vertical-align: baseline;
+  font-variant-numeric: tabular-nums;
+}
+.mp-ctable thead th {
+  font-family: var(--serif); font-size: var(--text-h4); color: var(--ink);
+  border-bottom: 1px solid var(--rule-strong); font-weight: var(--weight-regular);
+}
+.mp-ctable tbody th { color: var(--ink-3); font-weight: var(--weight-regular); }
+.mp-ctable td { color: var(--ink); }
+.mp-ctable-feature { background: var(--accent-wash); }
+
+/* --- the recommender. Radios and :checked, no script. --- */
+.mp-rec { margin-top: var(--space-xl); }
+.mp-rec-q { border: 0; margin: 0; padding: 0; }
+.mp-rec-legend {
+  padding: 0; margin-bottom: var(--space-md); font-family: var(--sans);
+  font-size: var(--text-label); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-2); font-weight: var(--weight-semibold);
+}
+.mp-rec-opts { display: grid; gap: var(--space-2xs); }
+@media (min-width: 46rem) { .mp-rec-opts { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 72rem) { .mp-rec-opts { grid-template-columns: repeat(4, 1fr); } }
+.mp-rec-opt {
+  display: block; padding: var(--space-md); cursor: pointer;
+  background: var(--paper-raised); border: 1px solid var(--rule-strong);
+  font-family: var(--sans); font-size: var(--text-body-sm); color: var(--ink);
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.mp-rec-opt:hover { background: var(--paper-sunk); }
+.mp-rec-out { display: none; margin-top: var(--space-lg); padding: var(--space-lg); border: 1px solid var(--accent); background: var(--paper-raised); }
+#rec-establish:checked ~ .mp-rec-q [for="rec-establish"],
+#rec-broaden:checked ~ .mp-rec-q [for="rec-broaden"],
+#rec-authority:checked ~ .mp-rec-q [for="rec-authority"],
+#rec-both:checked ~ .mp-rec-q [for="rec-both"] {
+  border-color: var(--accent); background: var(--accent-wash); font-weight: var(--weight-medium);
+}
+.mp-rec-in:focus-visible ~ .mp-rec-q [for="rec-establish"],
+.mp-rec-in:focus-visible ~ .mp-rec-q [for="rec-broaden"],
+.mp-rec-in:focus-visible ~ .mp-rec-q [for="rec-authority"],
+.mp-rec-in:focus-visible ~ .mp-rec-q [for="rec-both"] { outline: 2px solid var(--accent); outline-offset: 2px; }
+#rec-establish:focus-visible ~ .mp-rec-q [for="rec-establish"],
+#rec-broaden:focus-visible ~ .mp-rec-q [for="rec-broaden"],
+#rec-authority:focus-visible ~ .mp-rec-q [for="rec-authority"],
+#rec-both:focus-visible ~ .mp-rec-q [for="rec-both"] { outline: 2px solid var(--accent); outline-offset: 2px; }
+#rec-establish:checked ~ .mp-rec-outs .mp-rec-out-establish,
+#rec-broaden:checked ~ .mp-rec-outs .mp-rec-out-broaden,
+#rec-authority:checked ~ .mp-rec-outs .mp-rec-out-authority,
+#rec-both:checked ~ .mp-rec-outs .mp-rec-out-both { display: block; }
+.mp-rec-kicker {
+  margin: 0; font-family: var(--sans); font-size: var(--text-label);
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+  font-weight: var(--weight-semibold);
+}
+.mp-rec-name { margin: var(--space-2xs) 0 0; font-family: var(--serif); font-size: var(--text-h2); line-height: var(--leading-h2); color: var(--ink); }
+.mp-rec-tag { margin: 0; font-family: var(--sans); font-size: var(--text-label); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+.mp-rec-why { margin: var(--space-sm) 0 0; max-width: var(--measure); font-family: var(--serif); font-size: var(--text-body); line-height: var(--leading-body); color: var(--ink); }
+.mp-rec-money { margin: var(--space-sm) 0 0; font-family: var(--sans); font-size: var(--text-body-sm); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.mp-rec-act { margin: var(--space-md) 0 0; display: flex; gap: var(--space-sm); flex-wrap: wrap; }
+
+/* --- the publishing report --- */
+.mp-rp { margin-top: var(--space-md); border: 1px solid var(--rule-strong); background: var(--paper-raised); }
+.mp-rp-bar { display: flex; align-items: center; gap: var(--space-2xs); padding: var(--space-2xs) var(--space-sm); background: var(--paper-sunk); border-bottom: 1px solid var(--rule); }
+.mp-rp-dot { width: 8px; height: 8px; border-radius: var(--radius-full); background: var(--rule-strong); }
+.mp-rp-file { margin-left: var(--space-sm); font-family: var(--sans); font-size: var(--text-label); color: var(--ink-3); }
+.mp-rp-meta { padding: var(--space-md) var(--space-md) var(--space-sm); }
+.mp-rp-title { margin: 0; font-family: var(--serif); font-size: var(--text-h4); color: var(--ink); }
+.mp-rp-sub { margin: var(--space-3xs) 0 0; font-family: var(--sans); font-size: var(--text-label); color: var(--ink-3); }
+.mp-rp-scroll { overflow-x: auto; }
+.mp-rp-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.mp-rp-table { border-collapse: collapse; width: 100%; min-width: 34rem; font-family: var(--sans); font-size: var(--text-label); }
+.mp-rp-table th, .mp-rp-table td { padding: var(--space-2xs) var(--space-md); text-align: left; border-top: 1px solid var(--rule); }
+.mp-rp-table thead th { color: var(--ink-3); font-weight: var(--weight-medium); letter-spacing: 0.04em; text-transform: uppercase; }
+.mp-rp-n { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.mp-rp-outlet { color: var(--ink); }
+.mp-rp-host { color: var(--ink-2); word-break: break-word; }
+.mp-rp-kind { color: var(--ink-3); }
+.mp-rp-foot { margin: 0; padding: var(--space-sm) var(--space-md); border-top: 1px solid var(--rule); font-family: var(--sans); font-size: var(--text-caption); color: var(--ink-3); }
+
+/* --- the FAQ. Native disclosure, no script. --- */
+.mp-faq { display: grid; gap: 0; }
+.mp-faq-item { border-top: 1px solid var(--rule); }
+.mp-faq-item:last-child { border-bottom: 1px solid var(--rule); }
+.mp-faq-q {
+  padding: var(--space-md) var(--space-xl) var(--space-md) 0; cursor: pointer;
+  font-family: var(--serif); font-size: var(--text-h4); line-height: var(--leading-h4);
+  color: var(--ink); position: relative; list-style: none;
+}
+.mp-faq-q::-webkit-details-marker { display: none; }
+.mp-faq-q::after {
+  content: ''; position: absolute; right: var(--space-2xs); top: 50%;
+  width: 10px; height: 10px; margin-top: -5px;
+  border-right: 1.5px solid var(--accent); border-bottom: 1.5px solid var(--accent);
+  transform: rotate(45deg); transform-origin: center;
+  transition: transform var(--dur-fast) var(--ease);
+}
+.mp-faq-item[open] .mp-faq-q::after { transform: rotate(-135deg); }
+.mp-faq-q:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mp-faq-a { padding: 0 var(--space-xl) var(--space-md) 0; }
+.mp-faq-a p { margin: 0; max-width: var(--measure); font-family: var(--sans); font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); }
+
+/* --- the close --- */
+.mp-close-sub { margin: var(--space-md) auto 0; max-width: var(--measure); font-family: var(--sans); font-size: var(--text-body); line-height: var(--leading-body); color: var(--ink-2); }
+.mp-close-ladder { list-style: none; margin: var(--space-xl) 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-md); }
+.mp-close-ladder a { display: grid; gap: 2px; padding: var(--space-sm) var(--space-md); border: 1px solid var(--rule); text-decoration: none; background: var(--paper-raised); }
+.mp-close-ladder a:hover { border-color: var(--accent); }
+.mp-close-money { font-family: var(--serif); font-size: var(--text-h3); color: var(--ink); font-variant-numeric: tabular-nums; }
+.mp-close-name { font-family: var(--sans); font-size: var(--text-label); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+.mp-close-trust { margin: var(--space-lg) 0 0; font-family: var(--sans); font-size: var(--text-caption); letter-spacing: 0.03em; color: var(--ink-3); }
+
+/* --- visually hidden, for table captions and the recommender's radios --- */
+.mp-vh { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mp-rec-opt, .mp-faq-q::after { transition: none; }
+}
