@@ -1943,9 +1943,9 @@ blockquote p {
 :root[data-theme="dark"] .mp-pricing { background: linear-gradient(170deg, #1a1917 0%, #111111 100%); }
 .mp-paper-band { background: var(--paper); padding-block: clamp(4rem, 9vw, 7.5rem); }
 
-.mp-dark h2, .mp-night h2, .mp-burgundy h2,
-.mp-dark h3, .mp-night h3, .mp-burgundy h3 { color: var(--mp-ivory); }
-.mp-dark p, .mp-night p, .mp-burgundy p { color: var(--mp-ivory-2); }
+.mp-on-dark h2, .mp-on-dark h3 { color: var(--mp-ivory); }
+.mp-on-dark p { color: var(--mp-ivory-2); }
+.mp-on-dark .mp-lede { color: var(--mp-ivory-2); }
 
 /* A hairline of ochre across the top of a dark band. One pixel, and it is the
    thing that stops a dark section reading as an absence of design. */
@@ -2248,13 +2248,13 @@ blockquote p {
 }
 .mp-pcard-3 .mp-pcard-badge { background: var(--mp-ochre-ink); }
 .mp-pcard-4 .mp-pcard-badge { background: var(--mp-ivory); color: var(--mp-black); }
-.mp-pcard-tier {
+.mp-pcard-stage {
   display: flex; align-items: center; gap: var(--space-2xs);
   font-family: var(--sans); font-size: var(--text-label);
   letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
   margin: 0 0 var(--space-md);
 }
-.mp-pcard-flagship .mp-pcard-tier { color: var(--mp-ochre); }
+.mp-pcard-flagship .mp-pcard-stage { color: var(--mp-ochre); }
 .mp-pcard-name { margin: 0; font-family: var(--serif); font-size: var(--text-h2); line-height: 1.05; color: var(--ink); }
 .mp-pcard-tag { margin: var(--space-3xs) 0 var(--space-md); font-family: var(--sans); font-size: var(--text-caption); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
 .mp-pcard-price { margin: 0; display: flex; align-items: baseline; gap: var(--space-2xs); flex-wrap: wrap; }
@@ -2277,8 +2277,19 @@ blockquote p {
 .mp-wall { list-style: none; margin: var(--space-2xl) 0 0; padding: 0; display: grid; gap: 1px; background: var(--mp-rule-dark); border: 1px solid var(--mp-rule-dark); }
 @media (min-width: 40rem) { .mp-wall { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 64rem) { .mp-wall { grid-template-columns: repeat(4, 1fr); } }
-.mp-wall li { background: var(--mp-black); padding: var(--space-lg) var(--space-md); display: grid; gap: var(--space-3xs); align-content: start; }
-.mp-wall-name { font-family: var(--serif); font-size: var(--text-h4); color: var(--mp-ivory); }
+.mp-wall li { background: var(--mp-black); padding: clamp(1.4rem, 3vw, 2.1rem) var(--space-md); display: grid; gap: var(--space-3xs); align-content: start; transition: background 0.25s var(--ease); }
+.mp-wall li:hover { background: #151311; }
+/* The mastheads are the reason anyone reads this section, so they are set at
+   masthead scale and the host sits under them as a quieter second layer. No
+   logos: this publication holds no licence to any of these marks, and a drawn
+   approximation of one would be both an infringement and a lie about
+   endorsement. The name in the publication's own type says the same thing
+   honestly. */
+.mp-wall-name {
+  font-family: var(--serif); font-size: clamp(1.35rem, 2.6vw, 2rem);
+  line-height: 1.08; letter-spacing: -0.015em; color: var(--mp-ivory);
+  margin-bottom: 0.3rem;
+}
 .mp-wall-host { font-family: var(--sans); font-size: var(--text-caption); color: var(--mp-ivory-3); word-break: break-word; }
 .mp-wall-kind { font-family: var(--sans); font-size: var(--text-caption); letter-spacing: 0.04em; color: var(--mp-ochre); }
 .mp-wall-syndicated .mp-wall-kind { color: var(--mp-ivory-3); }
@@ -2341,9 +2352,28 @@ blockquote p {
 .mp-aud { list-style: none; margin: var(--space-2xl) 0 0; padding: 0; display: grid; gap: var(--space-lg); }
 @media (min-width: 44rem) { .mp-aud { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 68rem) { .mp-aud { grid-template-columns: repeat(3, 1fr); } }
-.mp-aud li { padding: var(--space-lg); background: var(--paper-raised); border: 1px solid var(--rule); display: grid; gap: var(--space-2xs); align-content: start; }
-.mp-aud .mp-ic { color: var(--accent); margin-bottom: var(--space-2xs); }
-.mp-aud h3 { margin: 0; font-family: var(--serif); font-size: var(--text-h4); color: var(--ink); }
+/* Photograph above, words below. The card itself is quiet: a hairline and the
+   page's own ground, so the picture is the thing that carries it. */
+.mp-aud-i {
+  background: var(--paper-raised); border: 1px solid var(--rule);
+  display: flex; flex-direction: column; align-content: start; min-width: 0;
+  overflow: hidden;
+}
+.mp-aud-shot { margin: 0; }
+.mp-aud-shot .mp-shot { margin: 0; }
+.mp-aud-shot .mp-shot img {
+  display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover;
+}
+/* The two professions without a photograph yet. A marked panel at the same
+   height as a picture, so the grid keeps its rhythm and the gap reads as a
+   choice rather than a broken image. */
+.mp-aud-mark {
+  aspect-ratio: 3 / 2; display: flex; align-items: center; justify-content: center;
+  background: var(--paper-sunk); border-bottom: 1px solid var(--rule);
+}
+.mp-aud-mark .mp-ic { color: var(--accent); width: 2.25rem; height: 2.25rem; }
+.mp-aud-txt { padding: var(--space-lg); display: grid; gap: var(--space-2xs); align-content: start; }
+.mp-aud h3 { margin: 0; font-family: var(--serif); font-size: var(--text-h3); color: var(--ink); line-height: 1.15; }
 .mp-aud p { margin: 0; font-family: var(--sans); font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--ink-2); }
 
 /* ---------------------------------------------------------- the comparison */
@@ -2526,3 +2556,252 @@ blockquote p {
   background: linear-gradient(105deg, rgba(74,10,14,0.97) 0%, rgba(50,10,13,0.9) 42%, rgba(20,12,12,0.46) 100%);
 }
 .mp-close > .sheet { position: relative; z-index: 2; }
+
+/* ===========================================================================
+   THE MEDIA AUTHORITY PROGRAMME, VISUAL PASS
+   ===========================================================================
+
+   The page was structurally sound and read as a utility: text, list, table,
+   text, table. What follows is the art direction, and it is mostly about
+   scale. A photograph that fills the opening, figures set at display size,
+   four prices that climb instead of sitting level, and one flagship moment.
+
+   The two layers over the hero photograph are real elements, not pseudo
+   elements. An element has exactly one ::before, and this stylesheet has
+   already shipped a bug where two rules claimed the same one and a
+   photograph rendered into a 1px strip. Real children cannot collide. */
+
+/* ---------------------------------------------------- the cinematic hero */
+
+.mp-hero-cine {
+  padding-block: clamp(4.5rem, 11vw, 9rem) clamp(3rem, 6vw, 4.5rem);
+  min-height: clamp(30rem, 72vh, 46rem);
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+.mp-hero-media {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url('imagery/cat-executives.jpg');
+  background-size: cover; background-position: 58% 38%;
+}
+/* Burgundy into near black, heavier on the left so the headline has a ground
+   to sit on and the room stays legible on the right. */
+.mp-hero-veil {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(100deg, rgba(14, 13, 11, 0.95) 0%, rgba(74, 10, 14, 0.82) 38%, rgba(20, 12, 12, 0.52) 72%, rgba(20, 12, 12, 0.66) 100%),
+    linear-gradient(to top, rgba(14, 13, 11, 0.92) 0%, rgba(14, 13, 11, 0) 42%);
+}
+.mp-hero-fore { position: relative; z-index: 2; }
+.mp-hero-cine .mp-hero-in { grid-template-columns: minmax(0, 1fr); gap: 0; }
+@media (min-width: 62rem) {
+  .mp-hero-cine .mp-hero-in { grid-template-columns: minmax(0, 1fr); }
+}
+.mp-hero-text { max-width: 36rem; }
+.mp-hero-h {
+  font-size: clamp(2.3rem, 6.4vw, 4.6rem); line-height: 1.02;
+  letter-spacing: -0.02em; text-wrap: balance;
+}
+.mp-hero-cine .mp-hero-lede { max-width: 32rem; }
+
+/* The three terms the programme is sold on. A row of restrained type, not a
+   feature list: anything longer belongs further down the page. */
+.mp-hero-terms {
+  list-style: none; margin: clamp(2.5rem, 6vw, 4.5rem) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-sm) var(--space-md);
+  border-top: 1px solid rgba(201, 162, 39, 0.42); padding-top: var(--space-lg);
+}
+.mp-hero-terms li { display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
+.mp-hero-terms b {
+  font-family: var(--sans); font-size: var(--text-label); font-weight: var(--weight-semibold);
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--mp-ochre);
+}
+.mp-hero-terms span {
+  font-family: var(--serif); font-size: clamp(1.25rem, 3vw, 1.85rem);
+  letter-spacing: -0.01em; color: var(--mp-ivory); line-height: 1.1;
+}
+
+/* ------------------------------------------------- figures at display size */
+
+.mp-figband { padding-block: clamp(3.5rem, 8vw, 6rem); }
+.mp-figs-xl {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.75rem, 4vw, 3rem) var(--space-lg);
+}
+@media (min-width: 46rem) { .mp-figs-xl { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 70rem) { .mp-figs-xl { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.mp-figs-xl .mp-fig-num {
+  font-size: clamp(2.6rem, 7vw, 4.4rem); line-height: 0.95; letter-spacing: -0.03em;
+}
+.mp-figband-note {
+  margin: clamp(2rem, 4vw, 3rem) 0 0; max-width: 46rem;
+  font-family: var(--sans); font-size: var(--text-body-sm); line-height: 1.6;
+  color: var(--mp-ivory-3);
+}
+
+/* ------------------------------------------------- the four stage progression */
+
+.mp-stageline {
+  list-style: none; margin: clamp(2rem, 4vw, 3rem) 0 clamp(2.5rem, 5vw, 3.5rem); padding: 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-sm);
+}
+@media (min-width: 52rem) { .mp-stageline { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.mp-stageline-i {
+  display: flex; flex-direction: column; gap: 0.25rem; min-width: 0;
+  padding: var(--space-sm) 0 0; border-top: 2px solid var(--rule);
+}
+/* Each rung is set a little heavier than the one below it, and the top rung
+   carries the accent. The climb is the point. */
+.mp-stageline-i:nth-child(2) { border-top-color: var(--rule-strong); }
+.mp-stageline-i:nth-child(3) { border-top-color: var(--ink-3); }
+.mp-stageline-i.is-top { border-top-color: var(--accent); }
+.mp-stageline-n {
+  font-family: var(--sans); font-size: var(--text-label); font-weight: var(--weight-semibold);
+  letter-spacing: 0.14em; color: var(--ink-3);
+}
+.mp-stageline-i.is-top .mp-stageline-n { color: var(--accent); }
+.mp-stageline-s {
+  font-family: var(--serif); font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+  color: var(--ink); line-height: 1.1;
+}
+.mp-stageline-m {
+  font-family: var(--sans); font-size: var(--text-body-sm); color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------- pricing hierarchy */
+
+.mp-pcard-stage > span { display: inline-block; }
+/* The climb, in card weight. Nothing shouts; each one is simply a little more
+   present than the last. */
+.mp-pcard-2 { border-color: var(--rule-strong); }
+.mp-pcard-3 { border-color: var(--ink-3); box-shadow: 0 2px 14px rgba(0, 0, 0, 0.06); }
+.mp-pcard-flagship {
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.26);
+  border-width: 1px;
+}
+@media (min-width: 64rem) {
+  /* The flagship breaks the grid line, top and bottom. */
+  .mp-pcard-flagship { margin-block: -2rem; padding-block: calc(var(--space-xl) + 2rem) calc(var(--space-lg) + 2rem); }
+}
+.mp-pcard-flagship .mp-pcard-amount { font-size: clamp(2.4rem, 5vw, 3.2rem); }
+.mp-pcard-flagship .mp-pcard-stage { color: var(--mp-ochre); }
+/* Pinned, not inherited. --on-accent flips to near black in dark mode, which
+   put dark text on the burgundy badge the last time this was left to the
+   token. */
+.mp-pcard-flagship .mp-pcard-badge { background: var(--mp-ochre); color: #0E0D0B; }
+.mp-ladder-stage {
+  font-family: var(--sans); font-size: var(--text-label);
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--mp-ochre);
+  margin-left: var(--space-2xs);
+}
+
+/* -------------------------------------------------------------- phone pass */
+
+@media (max-width: 46rem) {
+  .mp-hero-cine { min-height: 0; padding-block: clamp(2.5rem, 9vw, 4rem) clamp(2rem, 6vw, 3rem); }
+  .mp-hero-media { background-position: 62% 32%; }
+  .mp-hero-terms { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
+  .mp-hero-terms span { font-size: var(--text-h3); }
+  .mp-pcard-flagship { margin-block: 0; }
+}
+
+/* ------------------------------------------------------- the twelve months */
+
+.mp-year {
+  list-style: none; margin: clamp(2.5rem, 6vw, 4.5rem) 0 0; padding: 0;
+  display: grid; gap: var(--space-xl);
+  counter-reset: none;
+}
+@media (min-width: 60rem) {
+  .mp-year {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--space-lg);
+    /* The axis. One continuous line across the whole section, never a stub
+       between two points: a short rule here would read as a dash. */
+    border-top: 1px solid rgba(201, 162, 39, 0.38);
+    padding-top: var(--space-lg);
+  }
+}
+.mp-year-i { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; position: relative; }
+@media (min-width: 60rem) {
+  /* A marker sitting on the axis, square to match the brand's furniture. */
+  .mp-year-i::before {
+    content: ''; position: absolute; top: calc(var(--space-lg) * -1 - 3px);
+    left: 0; width: 6px; height: 6px; background: var(--mp-ochre);
+  }
+}
+.mp-year-n {
+  font-family: var(--serif); font-size: clamp(2.6rem, 6vw, 4rem);
+  line-height: 0.9; letter-spacing: -0.03em; color: var(--mp-ivory);
+  font-variant-numeric: tabular-nums;
+}
+.mp-year-t {
+  font-family: var(--sans); font-size: var(--text-label); font-weight: var(--weight-semibold);
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--mp-ochre);
+  margin-top: 0.2rem;
+}
+.mp-year-b {
+  font-family: var(--sans); font-size: var(--text-body-sm); line-height: 1.55;
+  color: var(--mp-ivory-2);
+}
+/* The shelf, full bleed under the year. */
+.mp-year-band { margin-top: clamp(3rem, 7vw, 5rem); }
+.mp-year-band .mp-shot { margin: 0; }
+.mp-year-band .mp-shot img {
+  width: 100%; height: clamp(14rem, 30vw, 24rem); object-fit: cover; display: block;
+}
+.mp-year-band .mp-shot-cap {
+  max-width: 72rem; margin-inline: auto;
+  padding-inline: var(--gutter); padding-top: var(--space-2xs);
+}
+
+/* --------------------------------------------------- the flagship moment */
+
+.mp-flagship {
+  background: var(--mp-grad-burg);
+  padding-block: clamp(4rem, 9vw, 7rem);
+  position: relative; isolation: isolate;
+  border-top: 1px solid rgba(201, 162, 39, 0.45);
+}
+.mp-flagship-in { display: grid; gap: clamp(2.5rem, 6vw, 4rem); align-items: center; }
+@media (min-width: 62rem) { .mp-flagship-in { grid-template-columns: 1.02fr 0.98fr; } }
+.mp-flagship-h { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.04; letter-spacing: -0.02em; }
+/* Reach + Authority. The whole proposition of this level in three words, so
+   it is set as type rather than as a diagram. */
+.mp-flagship-pair {
+  margin: var(--space-lg) 0 var(--space-md);
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 var(--space-sm);
+  font-family: var(--serif); font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+  color: var(--mp-ivory); line-height: 1.1;
+}
+.mp-flagship-pair i { color: var(--mp-ochre); font-style: normal; }
+.mp-flagship-figs {
+  list-style: none; margin: clamp(2rem, 4vw, 2.75rem) 0 0; padding: var(--space-lg) 0 0;
+  border-top: 1px solid rgba(250, 247, 240, 0.22);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md);
+}
+.mp-flagship-figs li { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+.mp-flagship-figs b {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(1.8rem, 4.4vw, 2.9rem); line-height: 0.95;
+  letter-spacing: -0.02em; color: var(--mp-ivory);
+  font-variant-numeric: tabular-nums;
+}
+.mp-flagship-figs span {
+  font-family: var(--sans); font-size: var(--text-caption); line-height: 1.4;
+  letter-spacing: 0.04em; color: var(--mp-ivory-2);
+}
+.mp-flagship-note {
+  margin: var(--space-md) 0 0; max-width: 34rem;
+  font-family: var(--sans); font-size: var(--text-caption); line-height: 1.55;
+  color: var(--mp-ivory-3);
+}
+.mp-flagship-acts { margin: var(--space-xl) 0 0; display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+.mp-flagship-fig .mp-shot { margin: 0; }
+@media (max-width: 40rem) {
+  .mp-flagship-figs { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
+  .mp-flagship-figs li { flex-direction: row; align-items: baseline; gap: var(--space-xs); }
+  .mp-flagship-figs b { min-width: 4.5rem; }
+}
