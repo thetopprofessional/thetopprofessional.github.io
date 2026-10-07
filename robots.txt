@@ -3,6 +3,7 @@ Allow: /$
 Allow: /recognition/
 Allow: /method/
 Allow: /about/
+Allow: /contact/
 Allow: /corrections/
 Allow: /media-authority-program/
 Allow: /assets/
