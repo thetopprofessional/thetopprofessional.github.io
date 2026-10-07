@@ -2805,3 +2805,43 @@ blockquote p {
   .mp-flagship-figs li { flex-direction: row; align-items: baseline; gap: var(--space-xs); }
   .mp-flagship-figs b { min-width: 4.5rem; }
 }
+
+/* ------------------------------------------------------------ five stages */
+
+.mp-stages {
+  list-style: none; margin: clamp(2.5rem, 6vw, 4rem) 0 0; padding: 0;
+  display: grid; gap: clamp(2rem, 4vw, 2.5rem);
+}
+@media (min-width: 44rem) { .mp-stages { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 72rem) { .mp-stages { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-lg); } }
+.mp-stage {
+  display: flex; flex-direction: column; gap: 0.45rem; min-width: 0;
+  padding-top: var(--space-md); border-top: 2px solid var(--rule-strong);
+}
+.mp-stage-n {
+  font-family: var(--serif); font-size: clamp(2.4rem, 5.5vw, 3.4rem);
+  line-height: 0.9; letter-spacing: -0.03em; color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.mp-stage-ic { color: var(--ink-3); display: block; }
+.mp-stage-ic .mp-ic { width: 1.35rem; height: 1.35rem; }
+.mp-stage-t {
+  font-family: var(--serif); font-size: var(--text-h3); color: var(--ink); line-height: 1.15;
+}
+.mp-stage-b {
+  font-family: var(--sans); font-size: var(--text-body-sm); line-height: var(--leading-body-sm);
+  color: var(--ink-2);
+}
+/* On the dark band the honesty section keeps its two columns, but the card
+   has to move with the ink. .mp-claim's ground is --paper-raised, which is
+   white, so lifting only the text produced ivory on white at 1.06:1. Ground
+   and ink change together or neither does. */
+.mp-on-dark .mp-claim { background: var(--mp-char); border-color: var(--mp-rule-dark); }
+.mp-on-dark .mp-claim-head { color: var(--mp-ivory); }
+.mp-on-dark .mp-claim li { color: var(--mp-ivory-2); }
+/* The affirm and refuse hues are tuned for paper. On near black they need
+   their lighter steps to clear 4.5:1. */
+.mp-on-dark .mp-claim-is { border-top-color: #5FB98C; }
+.mp-on-dark .mp-claim-is .mp-claim-head, .mp-on-dark .mp-claim-is .mp-ic { color: #5FB98C; }
+.mp-on-dark .mp-claim-not { border-top-color: #E8907F; }
+.mp-on-dark .mp-claim-not .mp-claim-head, .mp-on-dark .mp-claim-not .mp-ic { color: #E8907F; }
