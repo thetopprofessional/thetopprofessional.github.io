@@ -336,17 +336,31 @@ a:hover { color: var(--accent-2); }
    any other piece of editorial furniture: sunk paper, a hairline under it, and
    the only colour is the burgundy on the two word lead in. The substance is
    unchanged, because a page of worked examples has to say so. */
-.notice {
-  background: var(--paper-sunk); color: var(--ink-2);
-  border-bottom: 1px solid var(--rule);
-  font-family: var(--sans); font-size: var(--text-caption); line-height: 1.55;
-  letter-spacing: 0.005em;
-  padding-block: 0.65rem;
+/* The worked example marker.
+ *
+ * It replaced a bar above the masthead. A bordered inset, not a strip: it
+ * belongs to the record beneath it rather than to the chrome above it, and it
+ * reads as part of the page instead of as a dismissible site message. No
+ * rules, no leading dash, no decoration on the label.
+ */
+.exnote {
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+  padding: clamp(0.9rem, 2vw, 1.15rem) clamp(1rem, 2.2vw, 1.35rem);
+  background: var(--paper-sunk);
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  max-width: 44rem;
 }
-.notice b {
-  font-weight: 600; color: var(--accent);
-  letter-spacing: 0.04em; text-transform: uppercase;
-  font-size: var(--text-label); margin-right: 0.15rem;
+.exnote-label {
+  margin: 0 0 0.3rem;
+  font-family: var(--sans); font-size: var(--text-label);
+  font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent);
+}
+.exnote-body {
+  margin: 0;
+  font-family: var(--sans); font-size: var(--text-body-sm); line-height: 1.6;
+  color: var(--ink-2);
 }
 
 /* ---------------------------------------------------------------- masthead */
@@ -364,7 +378,8 @@ a:hover { color: var(--accent-2); }
    editorial black, which fails on a dark page, so dark mode gets a version
    whose letters carry the dark-mode ink while the burgundy banner and the white
    TOP are untouched. Only one is ever displayed, and the hidden one is also
-   hidden from assistive technology so the name is not announced twice. */
+   hidden from assistive technology so the name is not announced twice.
+
    The toggles are written as `.wordmark img.x` rather than `.x`, because a bare
    class loses on specificity to `.wordmark img` and both colourways rendered
    side by side. */
@@ -389,9 +404,35 @@ a:hover { color: var(--accent-2); }
 }
 .masthead-nav a:hover { color: var(--ink); }
 .masthead-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
-@media (max-width: 30rem) {
-  .masthead-in { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-  .masthead-nav ul { gap: 0.25rem 1.1rem; }
+/* The masthead on a phone.
+ *
+ * Seven words wrapped onto two ragged rows under the wordmark, 170px of a
+ * 844px screen, pinned there by position:sticky on every page. An eighth
+ * entry made it worse. So the list collapses behind a disclosure.
+ *
+ * A <details> element, not a script. The rest of the site renders with
+ * JavaScript switched off and the audit checks that it does, so a menu that
+ * needs a script to open would be the one control that sometimes is not
+ * there. The toggle is the word Menu with a chevron: no stack of horizontal
+ * bars, which at this size reads as three dashes.
+ */
+
+
+/* The one commercial destination in the masthead. Marked, not shouted: a
+   rule under the word in the accent, the same device that marks the current
+   section, weighted up rather than boxed. */
+/* The one commercial destination in the masthead. Marked with weight and the
+   accent colour, never with a rule: a line under or beside a single word in a
+   list reads as a dash, and this brief forbids dashes as decoration. */
+.nav-cta a { color: var(--accent); font-weight: 600; }
+.nav-cta a:hover { color: var(--accent-2); }
+
+@media (max-width: 46rem) {
+  /* Four entries, one row, nothing hidden behind a tap. The other four are
+     in the footer, which on a phone is a short scroll away. */
+  .masthead-in { flex-direction: column; align-items: flex-start; gap: var(--space-2xs); }
+  .masthead-nav ul { gap: 0 var(--space-md); flex-wrap: nowrap; }
+  .nav-wide { display: none; }
 }
 
 /* -------------------------------------------------------------------- hero */
@@ -689,6 +730,33 @@ blockquote p {
 .field textarea { min-height: 8rem; resize: vertical; }
 .hp { position: absolute; left: -9999px; }
 
+/* A jump target with nothing in it. It sits where the section begins and
+   takes no space, so a link to a level lands on the form rather than at the
+   top of the page. */
+.anchor { display: block; height: 0; overflow: hidden; }
+
+/* The desk form on the contact page.
+ *
+ * It does NOT take the .contact class. That class is a full-width band with
+ * its own sunk background and top rule, built for the foot of a profile page.
+ * Here the form sits inside a .sheet that already supplies the ground, so
+ * reusing it would paint a second panel inside the first. Only the .field
+ * primitives are shared, which is the part that is actually about form rows.
+ */
+.deskform { max-width: 34rem; }
+.field select {
+  width: 100%; font: inherit; font-size: var(--text-body); color: var(--ink);
+  background: var(--paper); border: 1px solid var(--rule-strong);
+  padding: 0.7rem 0.85rem; border-radius: 2px;
+  transition: border-color 0.15s var(--ease);
+}
+.field select:focus { border-color: var(--accent); }
+.deskform-note {
+  margin: 1.5rem 0 0; max-width: var(--measure);
+  font-size: var(--text-body-sm); color: var(--ink-2);
+}
+.deskform-note a { color: var(--ink); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+
 /* ------------------------------------------------------------------ footer */
 
 .foot {
@@ -729,7 +797,8 @@ blockquote p {
     --ink-3: #444; --rule: #bbb; --accent: #000; --accent-wash: #fff;
   }
   body { font-size: 11pt; }
-  .masthead, .contact, .skip { display: none; }
+  .masthead, .contact, .deskform, .skip { display: none; }
+  .exnote { border: 1px solid #999; }
   .hero { border-bottom: 1px solid #bbb; }
   .portrait { float: right; width: 42mm; margin: 0 0 8mm 8mm; }
   h1 { font-size: 24pt; }
@@ -1093,6 +1162,28 @@ blockquote p {
 }
 .foot-contact { margin-top: var(--space-2xs); }
 @media (min-width: 40rem) { .foot-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* The footer on a phone.
+ *
+ * The 44px tap target floor below is right and stays. What was wrong was the
+ * layout it sat in: three groups stacked in one column turned correct hit
+ * boxes into a 1000px wall of links, which is most of a phone screen of
+ * nothing but navigation. Two columns halves it without shrinking a single
+ * target. */
+@media (max-width: 40rem) {
+  /* One group per row, and the links inside it in two columns.
+     Three groups side by side left holes: Read has three entries and
+     Sections has six, so column one ran out while column two carried on, and
+     the next group started a fresh row against an empty cell. Splitting the
+     list rather than the groups keeps every row full and halves the height
+     without touching the 44px targets. */
+  .foot-cols { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
+  .foot nav.foot-cols ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--space-md); }
+  .foot nav.foot-cols li { padding: 0; }
+  .foot { padding-block: 2rem 2.5rem; }
+  .foot-in { gap: var(--space-md); }
+  .foot-head { margin-bottom: 0.15rem; }
+}
 
 /* ===========================================================================
    THE EDITORIAL SYSTEM
@@ -1615,6 +1706,10 @@ blockquote p {
     display: inline-flex; align-items: center; justify-content: center;
     min-height: 44px; min-width: 44px; padding-block: 0.5rem;
   }
+  /* A footer link is an item in a left aligned list, not a button. Centring
+     its text inside the 44px minimum width pushed the short words off the
+     margin: About sat indented against Method directly beneath it. */
+  .foot nav a { justify-content: flex-start; min-width: 0; }
   /* Links inside the source list and the contact routes are standalone
      controls, not words in a sentence, so they carry the same floor. They
      were measuring 17px and 23px tall, which fails even the 24px minimum. */
