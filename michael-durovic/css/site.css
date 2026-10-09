@@ -218,3 +218,28 @@ html.no-js .md-reveal{opacity:1;transform:none}
   html{scroll-behavior:auto}
   .md-reveal{opacity:1;transform:none;transition:none}
 }
+
+/* Continued study, provider cards with a count and the courses as chips */
+.md-prov{display:flex;flex-direction:column}
+.md-prov-n{
+  font-family:var(--md-head);font-size:34px;font-weight:800;line-height:1;
+  color:var(--md-acc-ink);display:block;margin-bottom:10px;letter-spacing:-.02em;
+}
+.md-prov h4{margin-bottom:14px}
+.md-prov .md-chips{margin-top:0}
+.md-prov .md-chips span{font-weight:500;font-size:13px;color:var(--md-muted);background:var(--md-paper);border-color:transparent}
+
+/* Chips on the dark panel */
+.md-chips-dark span{
+  background:transparent;border-color:rgba(242,184,85,.45);color:#F2B855;font-weight:600;
+}
+
+/* Looking ahead */
+.md-next{margin-top:8px}
+.md-next-i{display:grid;grid-template-columns:52px 1fr;gap:16px;padding:18px 0;border-top:1px solid rgba(255,255,255,.14)}
+.md-next-i:first-child{border-top:0}
+.md-next-n{font-family:var(--md-head);font-size:17px;font-weight:800;color:var(--md-acc-lift);padding-top:2px}
+.md-next-i h4{color:#fff;margin-bottom:4px}
+.md-next-i p{margin:0;color:#B9C4CD;font-size:15px;line-height:1.6}
+@media(max-width:1000px){ .md-cards{grid-template-columns:repeat(2,1fr)!important} }
+@media(max-width:900px){ .md-cards{grid-template-columns:1fr!important} }
