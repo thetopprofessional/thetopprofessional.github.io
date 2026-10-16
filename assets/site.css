@@ -789,6 +789,72 @@ blockquote p {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
+/* Second pass on motion. Everything below is inside the no-preference query,
+   so the reduce rule above stays the last word and nothing here reaches a
+   reader who asked for less movement. The house style is restrained: short
+   durations, no bounce, nothing that moves while being read. */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* A grid of cards arriving in one block lands heavily. A short offset per
+     item lets the eye travel along the row instead of taking the whole slab at
+     once. The offset is capped at the eighth card, so a long directory page
+     never leaves the last row waiting. */
+  .js .reveal.stagger > * { opacity: 0; transform: translateY(0.6rem); }
+  .js .reveal.stagger.in > * {
+    opacity: 1; transform: none;
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  }
+  .js .reveal.stagger.in > *:nth-child(1) { transition-delay: 0ms; }
+  .js .reveal.stagger.in > *:nth-child(2) { transition-delay: 55ms; }
+  .js .reveal.stagger.in > *:nth-child(3) { transition-delay: 110ms; }
+  .js .reveal.stagger.in > *:nth-child(4) { transition-delay: 165ms; }
+  .js .reveal.stagger.in > *:nth-child(5) { transition-delay: 220ms; }
+  .js .reveal.stagger.in > *:nth-child(6) { transition-delay: 275ms; }
+  .js .reveal.stagger.in > *:nth-child(7) { transition-delay: 330ms; }
+  .js .reveal.stagger.in > *:nth-child(n+8) { transition-delay: 385ms; }
+
+  /* A portrait or a drawn plate settles into its frame rather than appearing
+     in it. The movement is under two percent, which reads as the image coming
+     to rest and not as a zoom. */
+  .js .reveal .pcard-shot > img,
+  .js .reveal .pcard-shot > .plate,
+  .js .reveal.stagger > * .pcard-shot > img,
+  .js .reveal.stagger > * .pcard-shot > .plate { transform: scale(1.018); }
+  .js .reveal.in .pcard-shot > img,
+  .js .reveal.in .pcard-shot > .plate,
+  .js .reveal.stagger.in > * .pcard-shot > img,
+  .js .reveal.stagger.in > * .pcard-shot > .plate {
+    transform: none; transition: transform 0.9s var(--ease);
+  }
+
+  /* The masthead is sticky, so once the page has moved under it the bar needs
+     to read as a layer rather than as part of the page. Weight is added with
+     the existing rule colour and a hairline shadow, not with a new line. */
+  .masthead { transition: box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease); }
+  .masthead.is-stuck { box-shadow: var(--shadow-sm); border-bottom-color: var(--rule-strong); }
+
+  /* Cards answer the pointer. The border deepens and the surface sinks very
+     slightly: no lift, no drop shadow, because this is flat editorial and
+     faked depth would be the wrong register. */
+  .pcard-a, .pcard-shot { transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease); }
+  .pcard-a:hover .pcard-shot, .pcard-a:focus-visible .pcard-shot { border-color: var(--accent); }
+  .pcard-a:hover .pcard-name, .pcard-a:focus-visible .pcard-name { color: var(--accent); }
+  .pcard-name { transition: color var(--dur) var(--ease); }
+
+  /* A reference mark is the one control on a profile a reader actually hunts
+     for, so it is worth making it answer. Colour only: the size of the target
+     is a separate question. */
+  a.ref { transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
+  a.ref:hover, a.ref:focus-visible { background: var(--accent-wash); color: var(--accent); }
+
+  /* Prose links grow their underline rather than switching it on. */
+  .prose a:not(.ref) {
+    text-decoration-thickness: 1px; text-underline-offset: 0.14em;
+    transition: text-decoration-thickness var(--dur-fast) var(--ease), text-underline-offset var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+  }
+  .prose a:not(.ref):hover { text-decoration-thickness: 2px; text-underline-offset: 0.18em; }
+}
+
 /* ------------------------------------------------------------------- print */
 
 @media print {
