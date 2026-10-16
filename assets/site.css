@@ -799,6 +799,13 @@ blockquote p {
      item lets the eye travel along the row instead of taking the whole slab at
      once. The offset is capped at the eighth card, so a long directory page
      never leaves the last row waiting. */
+  /* Shown at load rather than on scroll: no transition, so the first screen
+     is complete and legible in the first painted frame. An accessibility scan
+     run on load was measuring half faded text as failing contrast, which is a
+     fair reading of text that is visible but not yet legible. */
+  .js .reveal.at-load, .js .reveal.at-load > *,
+  .js .reveal.stagger.at-load > * { transition: none !important; transition-delay: 0s !important; }
+
   .js .reveal.stagger > * { opacity: 0; transform: translateY(0.6rem); }
   .js .reveal.stagger.in > * {
     opacity: 1; transform: none;
