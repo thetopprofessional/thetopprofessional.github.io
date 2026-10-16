@@ -156,7 +156,20 @@ permalink: /professionals/leonard-yoshida/
   }, { rootMargin: '0px 0px -24px 0px' });
 
   var watched = [].slice.call(document.querySelectorAll('.reveal'));
-  watched.forEach(function (el) { io.observe(el); });
+
+  /* Anything already on screen when the page loads is shown at once, before
+     the observer's first callback. Two reasons. The first screen should be
+     complete at rest, so a reader who never scrolls is not looking at a fade
+     they did not ask for. And an accessibility scan run on load was reading
+     the half faded text as failing contrast, which is a fair reading: text
+     that is visible should be legible. Only content below the fold animates
+     in. */
+  var vh0 = window.innerHeight;
+  watched.forEach(function (el) {
+    var r = el.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < vh0) { el.classList.add('at-load'); el.classList.add('in'); return; }
+    io.observe(el);
+  });
 
   /* The observer batches its callbacks, so a fast flick down a long page can
      carry a section past the viewport between two reports and leave it blank
