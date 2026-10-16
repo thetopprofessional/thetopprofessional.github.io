@@ -84,7 +84,7 @@
 <p class="shead-standfirst">Selected because their record is the fullest, not because they rank above anybody else. Nothing on this site is ordered by merit.</p>
 </div>
 </header>
-<ul class="pgrid pgrid-feature"><li class="pcard pcard-feature">
+<ul class="pgrid reveal stagger pgrid-feature"><li class="pcard pcard-feature">
 <a class="pcard-a" href="professionals/adaeze-okonjo/">
 <span class="pcard-shot"><img src="portraits/adaeze-okonjo.jpg" alt="A woman in her fifties with short grey-flecked hair, in a dark navy blazer, photographed from the chest up against a plain warm grey background." width="800" height="1000" loading="lazy" decoding="async"><span class="pcard-gen">Generated likeness</span></span>
 <span class="pcard-body">
@@ -214,7 +214,7 @@
 
 </div>
 </header>
-<ul class="rgrid rgrid-lead"><li class="rcard rcard-feature">
+<ul class="rgrid reveal stagger rgrid-lead"><li class="rcard rcard-feature">
 <a class="rcard-a" href="releases/sample-professional-appointed/">
 
 <span class="rcard-body">
@@ -364,7 +364,7 @@
 <p class="exnote-label">Worked examples</p>
 <p class="exnote-body">The profiles on this site are worked examples, written to show how the publication records and cites a person&#39;s evidence. They do not describe real people.</p>
 </aside>
-<ul class="pgrid"><li class="pcard">
+<ul class="pgrid reveal stagger"><li class="pcard">
 <a class="pcard-a" href="professionals/grace-mutembei/">
 <span class="pcard-shot"><img src="portraits/grace-mutembei.thumb.jpg" alt="A woman in her forties wearing a patterned ochre headwrap and a simple dark top, photographed from the chest up against a plain pale background." width="320" height="400" loading="lazy" decoding="async"><span class="pcard-gen">Generated likeness</span></span>
 <span class="pcard-body">
@@ -572,12 +572,52 @@
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var root = document.documentElement;
   root.className += ' js';
+
+  function show(el) { el.classList.add('in'); io.unobserve(el); }
+
+  /* The bottom margin used to be -8%, which on a short viewport is about 70
+     pixels. A section whose top landed inside that band was on screen and
+     still hidden, and it stayed hidden until the reader scrolled. A flat 24
+     pixels keeps the entrance from firing on something barely peeking in
+     without leaving visible content blank. */
   var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, { rootMargin: '0px 0px -8% 0px' });
-  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    entries.forEach(function (e) { if (e.isIntersecting) show(e.target); });
+  }, { rootMargin: '0px 0px -24px 0px' });
+
+  var watched = [].slice.call(document.querySelectorAll('.reveal'));
+  watched.forEach(function (el) { io.observe(el); });
+
+  /* The observer batches its callbacks, so a fast flick down a long page can
+     carry a section past the viewport between two reports and leave it blank
+     until the reader happens to scroll back to it. Once scrolling settles,
+     anything still hidden but on screen is shown. */
+  var timer = null;
+  function settle() {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function () {
+      var h = window.innerHeight;
+      watched.forEach(function (el) {
+        if (el.classList.contains('in')) return;
+        var r = el.getBoundingClientRect();
+        if (r.bottom > 0 && r.top < h) show(el);
+      });
+    }, 120);
+  }
+  window.addEventListener('scroll', settle, { passive: true });
+  window.addEventListener('resize', settle, { passive: true });
+
+  /* The masthead is sticky. Once the page has moved under it, it reads as a
+     layer rather than as the top of the document. */
+  var bar = document.querySelector('.masthead');
+  if (bar) {
+    var stuck = false;
+    var onScroll = function () {
+      var now = window.scrollY > 4;
+      if (now !== stuck) { stuck = now; bar.classList.toggle('is-stuck', now); }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 })();
 </script>
 </body>
