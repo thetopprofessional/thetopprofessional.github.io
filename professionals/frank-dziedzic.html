@@ -87,7 +87,7 @@ permalink: /professionals/frank-dziedzic/
 
 </div>
 </header>
-<ul class="rgrid rgrid-solo"><li class="rcard">
+<ul class="rgrid reveal stagger rgrid-solo"><li class="rcard">
 <a class="rcard-a" href="../../releases/frank-dziedzic-profile/">
 <span class="rcard-meta"><time class="rcard-date" datetime="2026-09-18">18 September 2026</time></span>
 <span class="rcard-title">Frank Dziedzic recorded as President at Great Lakes Shipping Council</span>
@@ -143,12 +143,52 @@ permalink: /professionals/frank-dziedzic/
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var root = document.documentElement;
   root.className += ' js';
+
+  function show(el) { el.classList.add('in'); io.unobserve(el); }
+
+  /* The bottom margin used to be -8%, which on a short viewport is about 70
+     pixels. A section whose top landed inside that band was on screen and
+     still hidden, and it stayed hidden until the reader scrolled. A flat 24
+     pixels keeps the entrance from firing on something barely peeking in
+     without leaving visible content blank. */
   var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, { rootMargin: '0px 0px -8% 0px' });
-  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    entries.forEach(function (e) { if (e.isIntersecting) show(e.target); });
+  }, { rootMargin: '0px 0px -24px 0px' });
+
+  var watched = [].slice.call(document.querySelectorAll('.reveal'));
+  watched.forEach(function (el) { io.observe(el); });
+
+  /* The observer batches its callbacks, so a fast flick down a long page can
+     carry a section past the viewport between two reports and leave it blank
+     until the reader happens to scroll back to it. Once scrolling settles,
+     anything still hidden but on screen is shown. */
+  var timer = null;
+  function settle() {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function () {
+      var h = window.innerHeight;
+      watched.forEach(function (el) {
+        if (el.classList.contains('in')) return;
+        var r = el.getBoundingClientRect();
+        if (r.bottom > 0 && r.top < h) show(el);
+      });
+    }, 120);
+  }
+  window.addEventListener('scroll', settle, { passive: true });
+  window.addEventListener('resize', settle, { passive: true });
+
+  /* The masthead is sticky. Once the page has moved under it, it reads as a
+     layer rather than as the top of the document. */
+  var bar = document.querySelector('.masthead');
+  if (bar) {
+    var stuck = false;
+    var onScroll = function () {
+      var now = window.scrollY > 4;
+      if (now !== stuck) { stuck = now; bar.classList.toggle('is-stuck', now); }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 })();
 </script>
 </body>
