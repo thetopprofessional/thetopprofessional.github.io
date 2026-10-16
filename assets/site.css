@@ -476,8 +476,11 @@ h1 {
    sources the page rests on. The last of those is the promise, stated up
    front rather than discovered at the bottom. */
 .hero-meta {
-  display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin: 2rem 0 0;
-  padding-top: 1.25rem; border-top: 1px solid var(--rule-strong);
+  /* The rule that used to sit here was decoration: a drawn line separating the
+     standfirst from the apparatus. Separation is space, which is the same
+     principle the items below already follow. The space it occupied is kept,
+     so the composition does not change. */
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin: 3.25rem 0 0;
   font-family: var(--sans); font-size: var(--text-meta); letter-spacing: 0.06em;
   text-transform: uppercase; color: var(--ink-3);
   font-variant-numeric: tabular-nums lining-nums;
@@ -622,6 +625,28 @@ blockquote p {
 }
 .ref:hover, .ref:focus-visible { background: var(--accent); color: var(--paper); }
 .ref + .ref { margin-left: 0.06em; }
+/* Checking a citation is the one thing this publication asks a reader to do,
+   and the mark was 14 to 19 pixels tall: a thumb misses it and selects the
+   sentence instead. The mark keeps its size, which is a typographic decision,
+   and gains an invisible box around it that is big enough to hit. The box is
+   centred on the mark and is taken out of the flow, so nothing moves.
+   Consecutive marks sit about 10 pixels apart, so the box is kept narrow
+   enough that two of them do not overlap and steal each other's taps. */
+/* inline-block, so the mark's own box is the containing block for the hit
+   area below. As a plain inline the containing block is the whole line box,
+   and the expanded area stretched across the sentence instead of sitting on
+   the mark. line-height is already 1 here, so this does not move the line. */
+.ref { display: inline-block; position: relative; }
+.ref::after {
+  /* Expanded outward from the mark's own box with inset, rather than centred
+     with percentages: the containing block of an absolutely positioned child
+     of an inline element is an awkward shape, and a percentage against it put
+     one mark's box off centre. */
+  content: ''; position: absolute; inset: -9px -4px;
+}
+@media (pointer: coarse) {
+  .ref::after { inset: -13px -6px; }
+}
 
 .sources { padding-block: clamp(2.5rem, 6vw, 4rem); border-top: 1px solid var(--rule); }
 .sources h2, .contact h2 {
@@ -1586,9 +1611,14 @@ blockquote p {
    the picture at the weight of a caption, not across the subject's chest. */
 .pcard-gen {
   display: block; margin-top: var(--space-3xs);
-  font-family: var(--sans); font-size: var(--text-label-sm);
+  /* This was set at the label-small size, which made the one piece of text on
+     the page carrying a disclosure obligation the smallest thing on the site,
+     a step below the date beside it. A disclosure is not apparatus. It now
+     sits at the caption size and in the darker ink, so it is read rather than
+     merely present. */
+  font-family: var(--sans); font-size: var(--text-caption);
   letter-spacing: 0.04em; line-height: var(--leading-caption);
-  color: var(--ink-3);
+  color: var(--ink-2);
 }
 .pcard-body { display: grid; gap: var(--space-3xs); min-width: 0; }
 .pcard-eyebrow, .pcard-sec {
