@@ -3079,3 +3079,13 @@ blockquote p {
    produce the same shape. "8 named destinations" was sitting beside the
    figure while "358 pages in the sample report" wrapped beneath it. */
 .mp-pcard-per { flex-basis: 100%; }
+
+/* Touch targets.
+   .btn is 40px tall, which clears WCAG 2.2 Target Size (Minimum) at 24px but
+   sits under the 44px every touch platform asks for. Raising it everywhere
+   would coarsen the desktop layout for no gain, since a mouse is precise, so
+   the floor is applied only where the pointer actually is coarse. min-height
+   rather than height, so a button whose label wraps still grows. */
+@media (pointer: coarse) {
+  .btn { min-height: 44px; }
+}
