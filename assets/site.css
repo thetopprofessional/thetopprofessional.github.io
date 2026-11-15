@@ -2681,10 +2681,14 @@ blockquote p {
   min-height: clamp(30rem, 72vh, 46rem);
   display: flex; flex-direction: column; justify-content: flex-end;
 }
+/* The hero was a CSS background, so the browser could not pick a size and
+   could not prioritise it. It was the largest contentful paint on a phone
+   and it was fetching the 1200px file to fill a 390px screen. As an img it
+   gets a srcset, an explicit aspect ratio and fetchpriority. */
 .mp-hero-media {
   position: absolute; inset: 0; z-index: 0;
-  background-image: url('imagery/cat-executives.jpg');
-  background-size: cover; background-position: 58% 38%;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: 58% 38%;
 }
 /* Burgundy into near black, heavier on the left so the headline has a ground
    to sit on and the room stays legible on the right. */
@@ -2804,7 +2808,7 @@ blockquote p {
 
 @media (max-width: 46rem) {
   .mp-hero-cine { min-height: 0; padding-block: clamp(2.5rem, 9vw, 4rem) clamp(2rem, 6vw, 3rem); }
-  .mp-hero-media { background-position: 62% 32%; }
+  .mp-hero-media { object-position: 62% 32%; }
   .mp-hero-terms { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
   .mp-hero-terms span { font-size: var(--text-h3); }
   .mp-pcard-flagship { margin-block: 0; }
