@@ -2998,3 +2998,80 @@ blockquote p {
   letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
 }
 .mp-versus li:last-child i { color: var(--accent); }
+
+/* ============================================================ 2026 pass
+   Spatial depth for the programme page. The brand is editorial, so depth
+   comes from light and elevation rather than from glass over photography:
+   text sits on opaque surfaces throughout and every contrast ratio the
+   token audit measures is unchanged. Nothing here moves a layout, so a
+   reader on a slow device loses only the lighting. */
+
+/* The dark bands were flat planes. One soft light field gives them a
+   source and a direction, which is what makes a dark section read as a
+   room rather than as a rectangle. */
+.mp-night, .mp-burgundy, .mp-close { position: relative; isolation: isolate; }
+.mp-night::after, .mp-burgundy::after, .mp-close::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(60rem 36rem at 78% -10%, rgba(201, 148, 74, 0.13), transparent 62%),
+    radial-gradient(44rem 30rem at 6% 108%, rgba(143, 17, 23, 0.16), transparent 66%);
+}
+
+/* The four programme cards carried the whole offer and sat flat on the
+   page until hovered. They now rest on a real shadow, catch light along
+   the top edge, and lift further on hover. */
+.mp-pcard {
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 2px rgba(17, 17, 17, 0.05), 0 10px 26px -18px rgba(17, 17, 17, 0.4);
+}
+.mp-pcard::after {
+  content: ''; position: absolute; inset: 3px 0 auto; height: 40%; z-index: 0;
+  pointer-events: none; border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent);
+}
+.mp-pcard > * { position: relative; z-index: 1; }
+.mp-pcard::before { border-radius: var(--radius-md) var(--radius-md) 0 0; }
+.mp-pcard:hover, .mp-pcard:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 2px 4px rgba(17, 17, 17, 0.06), 0 30px 60px -28px rgba(17, 17, 17, 0.55);
+}
+.mp-pcard-feature { box-shadow: 0 2px 4px rgba(143, 17, 23, 0.08), 0 26px 56px -30px rgba(143, 17, 23, 0.5); }
+.mp-pcard-flagship::after { background: linear-gradient(180deg, rgba(250, 247, 240, 0.09), transparent); }
+.mp-pcard-flagship {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 32px 64px -30px rgba(0, 0, 0, 0.75);
+}
+
+/* The figure on each card is now a count rather than a price, so it needs
+   a unit beneath it rather than beside it. */
+.mp-ladder-unit {
+  display: block; font-family: var(--sans); font-size: var(--text-label);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--mp-ochre);
+  margin-top: var(--space-3xs);
+}
+
+/* The sample report was drawn as a window and then left sitting on the
+   page. Floating it is the one place on this page where the interface
+   should look like an object you could pick up. */
+.mp-rp {
+  border-radius: var(--radius-md); overflow: hidden;
+  box-shadow: 0 2px 6px rgba(17, 17, 17, 0.07), 0 36px 70px -34px rgba(17, 17, 17, 0.55);
+}
+
+/* Section edges were hard cuts between bands. A short gradient at the
+   seam reads as depth without introducing a decorative rule, which this
+   brand does not use. */
+.mp-ivory-band, .mp-paper-band { position: relative; }
+.mp-ivory-band::before, .mp-paper-band::before {
+  content: ''; position: absolute; inset: 0 0 auto; height: 4rem; pointer-events: none;
+  background: linear-gradient(180deg, rgba(17, 17, 17, 0.045), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mp-pcard { transition: none; }
+  .mp-pcard:hover, .mp-pcard:focus-within { transform: none; }
+}
+
+/* The unit always takes its own line, so a short count and a long count
+   produce the same shape. "8 named destinations" was sitting beside the
+   figure while "358 pages in the sample report" wrapped beneath it. */
+.mp-pcard-per { flex-basis: 100%; }
